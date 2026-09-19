@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/modernist-288dda3c-e1fa-4c2f-89ab-b0d8489feea2/styles.css">
+<script src="_ds/modernist-288dda3c-e1fa-4c2f-89ab-b0d8489feea2/_ds_bundle.js"></script>
+<script src="./cart.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=LXGW+WenKai+TC:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #ffffff; color: #0b0b0b; font-family: Archivo, Archivo, "LXGW WenKai TC", serif; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: #F08335; }
+  ::selection { background: #2B4CA8; color: #fff; }
+  input, select, textarea, button { font-family: inherit; }
+  input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible { outline: 2px solid #F08335; outline-offset: 2px; }
+  @keyframes bbrise { 0% { opacity: 0; transform: translateY(14px); } 100% { opacity: 1; transform: translateY(0); } }
+  @keyframes bbdrop { 0% { opacity: 0; transform: translateY(-8px); } 100% { opacity: 1; transform: translateY(0); } }
+  @keyframes bbpan { 0% { transform: scale(1.04) translate3d(0,0,0); } 100% { transform: scale(1.09) translate3d(0,-1.2%,0); } }
+</style>
+</helmet>
+
+<div style="width:100%;overflow-x:hidden">
+
+<header style="position:fixed;top:0;left:0;right:0;z-index:60;background:rgba(11,11,11,0.62);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);color:#fff;border-bottom:2px solid rgba(255,255,255,0.12)">
+  <div style="display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:clamp(16px,3vw,40px);padding:0 clamp(16px,3vw,40px);height:64px">
+    <div style="display:flex;align-items:center;min-width:0">
+      <a href="Home.dc.html" style="display:flex;flex-direction:column;line-height:1;flex:none">
+        <span style="font-size:17px;font-weight:700;letter-spacing:-0.02em">BioBunBan</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:9px;letter-spacing:0.34em;color:#8a8a8a;margin-top:3px">{{ t.tagline }}</span>
+      </a>
+    </div>
+    <nav style="display:flex;justify-content:center;gap:clamp(14px,2.2vw,32px);font-size:13.5px;letter-spacing:0.14em;text-transform:uppercase;color:#c9c9c9;min-width:0;flex-wrap:nowrap">
+      <div onMouseEnter="{{ openMenu }}" onMouseLeave="{{ closeMenu }}" style="position:relative">
+        <a href="Products.dc.html" style="white-space:nowrap;display:flex;align-items:center;gap:7px" style-hover="color:#F08335">{{ t.navProducts }} <span style="font-size:8px;opacity:0.7">▼</span></a>
+        <div style="position:absolute;top:100%;left:-18px;width:250px;height:16px;display:{{ menuDisplay }}"></div>
+        <div style="position:absolute;top:calc(100% + 14px);left:-18px;min-width:250px;z-index:70;display:{{ menuDisplay }};animation:bbdrop 200ms cubic-bezier(0.2,0.7,0.3,1) both;background:rgba(11,11,11,0.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:2px solid #262626;padding:8px 0;flex-direction:column">
+          <sc-for list="{{ menuCats }}" as="m" hint-placeholder-count="8">
+            <a href="{{ m.href }}" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13px;letter-spacing:0.04em;text-transform:none;color:#c9c9c9;padding:10px 20px;white-space:nowrap" style-hover="color:#F08335;background:#1c1c1c">{{ m.label }}</a>
+          </sc-for>
+        </div>
+      </div>
+      <a href="Manufacturing.dc.html" style="white-space:nowrap" style-hover="color:#F08335">{{ t.navManufacturing }}</a>
+      <a href="Materials.dc.html" style="white-space:nowrap" style-hover="color:#F08335">{{ t.navMaterials }}</a>
+      <a href="About.dc.html" style="white-space:nowrap" style-hover="color:#F08335">{{ t.navAbout }}</a>
+      <a href="Contact.dc.html" style="white-space:nowrap;color:#F08335">{{ t.navContact }}</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:clamp(10px,1.6vw,20px);font-size:11.5px;letter-spacing:0.12em;color:#c9c9c9">
+      <button onClick="{{ toggleLang }}" aria-label="Language" style="position:relative;display:flex;align-items:center;gap:0;background:#1c1c1c;border:2px solid #3a3a3a;padding:0;cursor:pointer;flex:none" style-hover="border-color:#F08335">
+        <span style="position:absolute;top:0;bottom:0;left:0;width:50%;background:#F08335;transform:{{ langKnob }};transition:transform 260ms cubic-bezier(0.4,0,0.2,1)"></span>
+        <span style="position:relative;z-index:1;width:38px;padding:7px 0;text-align:center;font-size:12px;font-weight:600;color:{{ zhInk }};transition:color 200ms">中</span>
+        <span style="position:relative;z-index:1;width:38px;padding:7px 0;text-align:center;font-size:11px;font-weight:600;letter-spacing:0.08em;color:{{ enInk }};transition:color 200ms">EN</span>
+      </button>
+      <a href="Home.dc.html" style-hover="color:#F08335">{{ t.account }}</a>
+      <button type="button" onClick="{{ openCart }}" style="display:flex;align-items:center;gap:7px;background:#F08335;color:#0b0b0b;border:0;font-family:inherit;font-size:11.5px;font-weight:600;letter-spacing:0.1em;padding:8px 14px;cursor:pointer" style-hover="background:#fff">{{ t.cart }} <span data-cart-count="1" style="opacity:0.6">0</span></button>
+    </div>
+  </div>
+</header>
+
+<section id="top" style="background:#0b0b0b;color:#fff;padding:clamp(108px,12vw,168px) clamp(16px,3vw,40px) clamp(40px,5vw,72px)">
+  <div style="max-width:1680px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(22px,3.4vw,40px)">
+    <div style="display:flex;align-items:baseline;gap:16px;font-size:11px;letter-spacing:0.28em;text-transform:uppercase;color:#F08335;animation:bbrise 800ms ease-out both">
+      <span>Get in touch</span><span style="color:#4a4a4a">—</span><span style="color:#9b9b9b">{{ t.heroKicker2 }}</span>
+    </div>
+    <h1 style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-weight:300;font-size:clamp(34px,5.6vw,88px);line-height:1.1;letter-spacing:-0.02em;max-width:16em;animation:bbrise 1000ms ease-out both">{{ t.heroTitle1 }}<br>{{ t.heroTitle2 }}</h1>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:clamp(20px,3vw,56px);border-top:2px solid #262626;padding-top:24px;animation:bbrise 1200ms ease-out both">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;color:#5f5f5f">{{ t.lblPhone }}</span>
+        <a href="tel:+886266057658" style="font-family:Archivo;font-size:clamp(20px,2.2vw,30px);font-weight:400;letter-spacing:-0.01em;color:#F08335" style-hover="color:#fff">02-6605-7658</a>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13px;color:#9b9b9b;font-weight:300">{{ t.fHours }}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;color:#5f5f5f">{{ t.lblEmail }}</span>
+        <a href="mailto:service@biobunban.com" style="font-family:Archivo;font-size:clamp(16px,1.6vw,22px);font-weight:400;word-break:break-all;color:#7FA3F0" style-hover="color:#fff">service@biobunban.com</a>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13px;color:#9b9b9b;font-weight:300">{{ t.emailNote }}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;color:#5f5f5f">{{ t.lblLine }}</span>
+        <a href="https://lin.ee/VEZ2qUi" style="font-family:Archivo;font-size:clamp(16px,1.6vw,22px);font-weight:400;color:#FF6B57" style-hover="color:#fff">LINE @biobunban</a>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13px;color:#9b9b9b;font-weight:300">{{ t.lineNote }}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;color:#5f5f5f">{{ t.lblAddress }}</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:14.5px;line-height:1.7;font-weight:300">{{ t.fAddress }}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="form" style="max-width:1680px;margin:0 auto;padding:clamp(56px,8vw,120px) clamp(16px,3vw,40px)">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(32px,5vw,90px);align-items:start">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <span style="font-size:11px;letter-spacing:0.28em;text-transform:uppercase;color:#F08335">{{ t.k01 }}</span>
+      <h2 style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-weight:300;font-size:clamp(28px,4vw,60px);line-height:1.14;letter-spacing:-0.02em;max-width:11em">{{ t.formTitle1 }}<br>{{ t.formTitle2 }}</h2>
+      <p style="margin:6px 0 0;font-family:Archivo,'LXGW WenKai TC',serif;font-size:14px;line-height:1.95;color:#5c5a58;font-weight:300;max-width:38ch">{{ t.formLead }}</p>
+      <div style="margin-top:clamp(12px,2vw,28px);display:flex;flex-direction:column;border-top:2px solid #0b0b0b">
+        <sc-for list="{{ routes }}" as="r" hint-placeholder-count="3">
+          <div style="display:grid;grid-template-columns:minmax(0,0.8fr) minmax(0,1.2fr);gap:clamp(12px,2vw,28px);align-items:baseline;padding:16px 0;border-bottom:2px solid #e2e0df">
+            <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:14px;font-weight:500">{{ r.title }}</span>
+            <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13px;line-height:1.85;color:#5c5a58;font-weight:300">{{ r.body }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <form onSubmit="{{ onSubmit }}" style="display:flex;flex-direction:column;gap:0;border:2px solid #0b0b0b">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:0">
+        <label style="display:flex;flex-direction:column;gap:8px;padding:clamp(18px,2.2vw,28px);box-shadow:2px 0 0 #0b0b0b, 0 2px 0 #0b0b0b">
+          <span style="font-size:10.5px;letter-spacing:0.2em;text-transform:uppercase;color:#8a8785">{{ t.fldName }}</span>
+          <input type="text" name="name" required="true" placeholder="{{ t.phName }}" style="border:0;border-bottom:2px solid #e2e0df;background:transparent;padding:8px 0;font-size:15px;color:#0b0b0b">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:8px;padding:clamp(18px,2.2vw,28px);box-shadow:2px 0 0 #0b0b0b, 0 2px 0 #0b0b0b">
+          <span style="font-size:10.5px;letter-spacing:0.2em;text-transform:uppercase;color:#8a8785">{{ t.fldCompany }}</span>
+          <input type="text" name="company" placeholder="{{ t.phCompany }}" style="border:0;border-bottom:2px solid #e2e0df;background:transparent;padding:8px 0;font-size:15px;color:#0b0b0b">
+        </label>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:0">
+        <label style="display:flex;flex-direction:column;gap:8px;padding:clamp(18px,2.2vw,28px);box-shadow:2px 0 0 #0b0b0b, 0 2px 0 #0b0b0b">
+          <span style="font-size:10.5px;letter-spacing:0.2em;text-transform:uppercase;color:#8a8785">{{ t.fldEmail }}</span>
+          <input type="email" name="email" required="true" placeholder="name@company.com" style="border:0;border-bottom:2px solid #e2e0df;background:transparent;padding:8px 0;font-size:15px;color:#0b0b0b">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:8px;padding:clamp(18px,2.2vw,28px);box-shadow:2px 0 0 #0b0b0b, 0 2px 0 #0b0b0b">
+          <span style="font-size:10.5px;letter-spacing:0.2em;text-transform:uppercase;color:#8a8785">{{ t.fldPhone }}</span>
+          <input type="tel" name="phone" placeholder="09xx-xxx-xxx" style="border:0;border-bottom:2px solid #e2e0df;background:transparent;padding:8px 0;font-size:15px;color:#0b0b0b">
+        </label>
+      </div>
+      <div style="border-bottom:2px solid #0b0b0b;padding:clamp(18px,2.2vw,28px);display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:10.5px;letter-spacing:0.2em;text-transform:uppercase;color:#8a8785">{{ t.fldTopic }}</span>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ topics }}" as="tp" hint-placeholder-count="4">
+            <button type="button" onClick="{{ tp.select }}" style="border:2px solid {{ tp.border }};background:{{ tp.bg }};color:{{ tp.ink }};font-size:12px;letter-spacing:0.1em;padding:9px 16px;cursor:pointer;font-weight:600" style-hover="border-color:#F08335">{{ tp.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <label style="display:flex;flex-direction:column;gap:8px;padding:clamp(18px,2.2vw,28px);border-bottom:2px solid #0b0b0b">
+        <span style="font-size:10.5px;letter-spacing:0.2em;text-transform:uppercase;color:#8a8785">{{ t.fldMessage }}</span>
+        <textarea name="message" rows="5" required="true" placeholder="{{ t.phMessage }}" style="border:0;border-bottom:2px solid #e2e0df;background:transparent;padding:8px 0;font-size:15px;line-height:1.7;color:#0b0b0b;resize:vertical"></textarea>
+      </label>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;padding:clamp(18px,2.2vw,28px)">
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:12px;line-height:1.8;color:#5c5a58;font-weight:300;max-width:34ch">{{ t.formNote }}</span>
+        <button type="submit" style="background:#0b0b0b;color:#fff;border:0;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;padding:15px 26px;cursor:pointer" style-hover="background:#F08335;color:#0b0b0b">{{ submitLabel }}</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section id="hours" style="background:#0b0b0b;color:#fff;padding:clamp(56px,8vw,130px) clamp(16px,3vw,40px)">
+  <div style="max-width:1680px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(24px,4vw,80px);align-items:end;border-bottom:2px solid #262626;padding-bottom:clamp(22px,3vw,38px)">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <span style="font-size:11px;letter-spacing:0.28em;text-transform:uppercase;color:#2B4CA8">{{ t.k02 }}</span>
+        <h2 style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-weight:300;font-size:clamp(26px,3.6vw,54px);line-height:1.16;letter-spacing:-0.02em">{{ t.visitTitle }}</h2>
+      </div>
+      <p style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-size:14px;line-height:1.95;color:#9b9b9b;font-weight:300;max-width:42ch">{{ t.visitLead }}</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:0">
+      <div style="padding:clamp(24px,3vw,44px) clamp(18px,2.2vw,36px);border-bottom:2px solid #262626;box-shadow:2px 0 0 #262626;display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:10.5px;letter-spacing:0.2em;text-transform:uppercase;color:#5f5f5f">{{ t.v1Kicker }}</span>
+        <span style="font-family:Archivo;font-size:clamp(28px,3.4vw,48px);font-weight:300;line-height:1;letter-spacing:-0.03em">09:00</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13px;line-height:1.9;color:#9b9b9b;font-weight:300">{{ t.v1Body }}</span>
+      </div>
+      <div style="padding:clamp(24px,3vw,44px) clamp(18px,2.2vw,36px);border-bottom:2px solid #262626;box-shadow:2px 0 0 #262626;display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:10.5px;letter-spacing:0.2em;text-transform:uppercase;color:#5f5f5f">{{ t.v2Kicker }}</span>
+        <span style="font-family:Archivo;font-size:clamp(28px,3.4vw,48px);font-weight:300;line-height:1;letter-spacing:-0.03em">17:00</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13px;line-height:1.9;color:#9b9b9b;font-weight:300">{{ t.v2Body }}</span>
+      </div>
+      <div style="padding:clamp(24px,3vw,44px) clamp(18px,2.2vw,36px);border-bottom:2px solid #262626;box-shadow:2px 0 0 #262626;display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:10.5px;letter-spacing:0.2em;text-transform:uppercase;color:#5f5f5f">{{ t.v3Kicker }}</span>
+        <span style="font-family:Archivo;font-size:clamp(28px,3.4vw,48px);font-weight:300;line-height:1;letter-spacing:-0.03em;color:#F08335">12F-8</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13px;line-height:1.9;color:#9b9b9b;font-weight:300">{{ t.v3Body }}</span>
+      </div>
+      <div style="padding:clamp(24px,3vw,44px) clamp(18px,2.2vw,36px);border-bottom:2px solid #262626;display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:10.5px;letter-spacing:0.2em;text-transform:uppercase;color:#5f5f5f">{{ t.v4Kicker }}</span>
+        <span style="font-family:Archivo;font-size:clamp(28px,3.4vw,48px);font-weight:300;line-height:1;letter-spacing:-0.03em;color:#2B4CA8">1 – 2</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13px;line-height:1.9;color:#9b9b9b;font-weight:300">{{ t.v4Body }}</span>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;padding-top:clamp(26px,3.4vw,48px)">
+      <a href="https://www.facebook.com/biobunban" style="border:2px solid #3a3a3a;color:#fff;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:12px 20px" style-hover="border-color:#F08335;color:#F08335">Facebook</a>
+      <a href="https://www.instagram.com/biobunban/" style="border:2px solid #3a3a3a;color:#fff;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:12px 20px" style-hover="border-color:#F08335;color:#F08335">Instagram</a>
+      <a href="https://lin.ee/VEZ2qUi" style="border:2px solid #3a3a3a;color:#fff;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:12px 20px" style-hover="border-color:#F08335;color:#F08335">LINE</a>
+      <a href="https://www.youtube.com/@BioBunBan" style="border:2px solid #3a3a3a;color:#fff;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:12px 20px" style-hover="border-color:#F08335;color:#F08335">YouTube</a>
+    </div>
+  </div>
+</section>
+
+<footer style="background:#0b0b0b;color:#fff;padding:clamp(56px,7vw,110px) clamp(16px,3vw,40px) 40px;border-top:2px solid #262626">
+  <div style="max-width:1680px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:clamp(28px,4vw,64px);border-bottom:2px solid #262626;padding-bottom:clamp(36px,5vw,64px)">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:22px;font-weight:700;letter-spacing:-0.02em">BioBunBan</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:12px;letter-spacing:0.3em;color:#8a8a8a">{{ t.tagline }}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:#5f5f5f">{{ t.fAbout }}</span>
+        <a href="About.dc.html#top" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fAbout1 }}</a>
+        <a href="About.dc.html#values" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fAbout2 }}</a>
+        <a href="About.dc.html#promise" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fAbout3 }}</a>
+        <a href="Materials.dc.html" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fAbout4 }}</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:#5f5f5f">{{ t.fService }}</span>
+        <a href="Contact.dc.html#form" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fService1 }}</a>
+        <a href="Contact.dc.html#form" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fService2 }}</a>
+        <a href="Contact.dc.html#form" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fService3 }}</a>
+        <a href="Contact.dc.html#form" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fService4 }}</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:#5f5f5f">{{ t.fTouch }}</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9">{{ t.fPhone }}</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9">{{ t.fHours }}</span>
+        <a href="mailto:service@biobunban.com" style="font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">service@biobunban.com</a>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;line-height:1.7;color:#8a8a8a">{{ t.fAddress }}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:#5f5f5f">{{ t.fFollow }}</span>
+        <a href="https://www.facebook.com/biobunban" style="font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">Facebook</a>
+        <a href="https://www.instagram.com/biobunban/" style="font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">Instagram</a>
+        <a href="https://lin.ee/VEZ2qUi" style="font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">LINE</a>
+        <a href="https://www.youtube.com/@BioBunBan" style="font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">YouTube</a>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;padding-top:28px;font-size:11px;letter-spacing:0.14em;color:#5f5f5f">
+      <span>{{ t.copyright }}</span>
+      <span>{{ t.place }}</span>
+    </div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;zh&quot;,&quot;options&quot;:[&quot;zh&quot;,&quot;en&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Language&quot;}}">
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    this.state = { lang: p.defaultLang === 'en' ? 'en' : 'zh', menu: false, topic: 0, sent: false };
+  }
+  componentDidMount() {
+    try {
+      import('./reveal.js').then(m => m.setupReveal(document)).catch(() => {});
+    } catch (e) {}
+    try {
+      const saved = localStorage.getItem('bb-lang');
+      if ((saved === 'en' || saved === 'zh') && saved !== this.state.lang) this.setState({ lang: saved });
+    } catch (e) {}
+  }
+  setLang(l) {
+    try { localStorage.setItem('bb-lang', l); } catch (e) {}
+    this.setState({ lang: l });
+    if (document.documentElement) document.documentElement.lang = l === 'en' ? 'en' : 'zh-Hant';
+  }
+  dict() {
+    return {
+      zh: {
+        tagline: '生物的魔法師',
+        navProducts: '商品', navManufacturing: '製造', navMaterials: '原料', navAbout: '關於', navContact: '聯絡',
+        account: '會員', cart: '購物車',
+        heroKicker2: '客服・訂單・委託代工',
+        heroTitle1: '有問題，', heroTitle2: '找得到人回答',
+        lblPhone: '客服專線', lblEmail: '電子信箱', lblLine: 'LINE 官方帳號', lblAddress: '地址',
+        emailNote: '一般詢問一個工作日內回覆', lineNote: '訂單與到貨查詢最快',
+        k01: '01 — 聯絡表單',
+        formTitle1: '先說清楚要問的事，', formTitle2: '回覆會快很多',
+        formLead: '選一個主題並留下聯絡方式。代工與原料詢問請一併說明預計劑型與數量，我們會直接請對應的人回覆。',
+        r1Title: '訂單與到貨', r1Body: '查詢、退換貨與發票問題，請附上訂單編號。',
+        r2Title: '委託代工 CDMO', r2Body: '配方開發、試作與量產，說明劑型、數量與時程。',
+        r3Title: '原料與菌株', r3Body: '菌株授權與植物幹細胞原料的規格書與報價。',
+        r4Title: '通路與媒體', r4Body: '經銷合作、門市上架與採訪邀約。',
+        fldName: '姓名', fldCompany: '公司（選填）', fldEmail: '電子信箱', fldPhone: '電話（選填）',
+        fldTopic: '詢問主題', fldMessage: '訊息內容',
+        phName: '王小明', phCompany: '公司或品牌名稱', phMessage: '請簡單描述您的需求，代工請含劑型與預估數量。',
+        topic1: '訂單與到貨', topic2: '委託代工', topic3: '原料與菌株', topic4: '通路與媒體', topic5: '其他',
+        formNote: '這是設計稿的示意表單，尚未連接後端。送出後僅顯示確認狀態。',
+        submit: '送出詢問', submitted: '已送出，感謝！',
+        k02: '02 — 造訪與時間',
+        visitTitle: '桃園・中壢',
+        visitLead: '辦公室位於高鐵桃園站前。參訪產線或會議請先來信預約，我們會安排時間與人員。',
+        v1Kicker: '客服開始', v1Body: '週一至週五，國定假日除外。',
+        v2Kicker: '客服結束', v2Body: '此時段後的來信於次一工作日回覆。',
+        v3Kicker: '樓層', v3Body: '高鐵站前西路一段268號。',
+        v4Kicker: '回覆時間', v4Body: '個工作日內回覆一般詢問。',
+        fAbout: '關於', fAbout1: '關於我們', fAbout2: '理念', fAbout3: '安心宣言', fAbout4: '原料展示',
+        fService: '服務', fService1: '客服中心', fService2: '退款政策', fService3: '隱私政策', fService4: '服務條款',
+        fTouch: '聯絡我們', fPhone: '客服專線：02-6605-7658', fHours: '客服時間：09:00–17:00',
+        fAddress: '桃園市中壢區高鐵站前西路一段268號12F-8',
+        fFollow: '追蹤我們',
+        copyright: '© 2026 BioBunBan 生物的魔法師. 版權所有.', place: '桃園 · 台灣'
+      },
+      en: {
+        tagline: 'THE BIO MAGICIANS',
+        navProducts: 'Products', navManufacturing: 'Manufacturing', navMaterials: 'Materials', navAbout: 'About', navContact: 'Contact',
+        account: 'Account', cart: 'CART',
+        heroKicker2: 'Service · Orders · Contract manufacturing',
+        heroTitle1: 'Ask us anything —', heroTitle2: 'someone will answer',
+        lblPhone: 'Service line', lblEmail: 'Email', lblLine: 'LINE official account', lblAddress: 'Address',
+        emailNote: 'General enquiries answered within one working day', lineNote: 'Fastest for order and delivery questions',
+        k01: '01 — Contact form',
+        formTitle1: 'Tell us what it is about', formTitle2: 'and the reply comes faster',
+        formLead: 'Pick a topic and leave a way to reach you. For contract manufacturing and materials, include the dosage form and volume you have in mind and we will route it to the right person.',
+        r1Title: 'Orders and delivery', r1Body: 'Tracking, returns and invoices — please include the order number.',
+        r2Title: 'Contract manufacturing', r2Body: 'Formulation, pilot runs and scale-up: dosage form, volume and timing.',
+        r3Title: 'Materials and strains', r3Body: 'Strain licensing and plant stem cell specifications and quotes.',
+        r4Title: 'Retail and press', r4Body: 'Distribution, shelf listing and interview requests.',
+        fldName: 'Name', fldCompany: 'Company (optional)', fldEmail: 'Email', fldPhone: 'Phone (optional)',
+        fldTopic: 'Topic', fldMessage: 'Message',
+        phName: 'Your name', phCompany: 'Company or brand', phMessage: 'A short description of what you need. For OEM, include dosage form and estimated volume.',
+        topic1: 'Orders', topic2: 'Manufacturing', topic3: 'Materials', topic4: 'Retail & press', topic5: 'Other',
+        formNote: 'This form is a design prototype and is not connected to a backend. Submitting only shows a confirmation.',
+        submit: 'Send enquiry', submitted: 'Sent — thank you!',
+        k02: '02 — Visit and hours',
+        visitTitle: 'Zhongli, Taoyuan',
+        visitLead: 'The office sits by Taoyuan HSR station. For a plant visit or a meeting, email first and we will arrange the time and the people.',
+        v1Kicker: 'Service opens', v1Body: 'Monday to Friday, excluding public holidays.',
+        v2Kicker: 'Service closes', v2Body: 'Messages after this hour are answered the next working day.',
+        v3Kicker: 'Floor', v3Body: 'No. 268, Sec. 1, Gaotie Zhanqian W. Rd.',
+        v4Kicker: 'Response', v4Body: 'Working days to answer a general enquiry.',
+        fAbout: 'About', fAbout1: 'About us', fAbout2: 'Philosophy', fAbout3: 'Safety statement', fAbout4: 'Materials',
+        fService: 'Service', fService1: 'Customer service', fService2: 'Refund policy', fService3: 'Privacy policy', fService4: 'Terms of service',
+        fTouch: 'Get in touch', fPhone: 'Service line: +886 2-6605-7658', fHours: 'Hours: 09:00–17:00',
+        fAddress: '12F-8, No. 268, Sec. 1, Gaotie Zhanqian W. Rd., Zhongli, Taoyuan, Taiwan',
+        fFollow: 'Follow',
+        copyright: '© 2026 BioBunBan. All rights reserved.', place: 'Taoyuan · Taiwan'
+      }
+    };
+  }
+  renderVals() {
+    const lang = this.state.lang === 'en' ? 'en' : 'zh';
+    const t = this.dict()[lang];
+    const sel = this.state.topic;
+    return {
+      t,
+      routes: [1, 2, 3, 4].map(i => ({ title: t['r' + i + 'Title'], body: t['r' + i + 'Body'] })),
+      topics: [0, 1, 2, 3, 4].map(i => ({
+        label: t['topic' + (i + 1)],
+        border: sel === i ? '#0b0b0b' : '#e2e0df',
+        bg: sel === i ? '#0b0b0b' : 'transparent',
+        ink: sel === i ? '#ffffff' : '#3a3a3a',
+        select: () => this.setState({ topic: i, sent: false })
+      })),
+      submitLabel: this.state.sent ? t.submitted : t.submit,
+      onSubmit: (e) => { e.preventDefault(); this.setState({ sent: true }); },
+      menuDisplay: this.state.menu ? 'flex' : 'none',
+      openMenu: () => this.setState({ menu: true }),
+      closeMenu: () => this.setState({ menu: false }),
+      menuCats: [
+        ['all', '全部商品', 'All products'],
+        ['helos', '跑趴伴侶 Dr. Helos', 'Dr. Helos'],
+        ['burning', '燃燒吧 Burning', 'Burning'],
+        ['sommeil', '淺眠好幫手 Sommeil', 'Sommeil'],
+        ['women', '全方位女性', 'Women'],
+        ['focus', '思緒的精準導航', 'Focus'],
+        ['phytopure', '植・萃 PhytoPure', 'PhytoPure'],
+        ['partner', '合作夥伴商品', 'Partner']
+      ].map(r => ({ label: lang === 'zh' ? r[1] : r[2], href: 'Products.dc.html#' + r[0] })),
+      langKnob: lang === 'zh' ? 'translateX(0)' : 'translateX(100%)',
+      zhInk: lang === 'zh' ? '#0b0b0b' : '#8a8a8a',
+      enInk: lang === 'en' ? '#0b0b0b' : '#8a8a8a',
+      openCart: () => { if (window.BBCart) window.BBCart.open(); },
+      toggleLang: () => this.setLang(lang === 'zh' ? 'en' : 'zh')
+    };
+  }
+}
+</script>
+</body>
+</html>

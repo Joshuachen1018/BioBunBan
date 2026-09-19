@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/modernist-288dda3c-e1fa-4c2f-89ab-b0d8489feea2/styles.css">
+<script src="_ds/modernist-288dda3c-e1fa-4c2f-89ab-b0d8489feea2/_ds_bundle.js"></script>
+<script src="./cart.js"></script>
+<script src="./image-slot.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=LXGW+WenKai+TC:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #ffffff; color: #0b0b0b; font-family: Archivo, Archivo, "LXGW WenKai TC", serif; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: #F08335; }
+  ::selection { background: #2B4CA8; color: #fff; }
+  @keyframes bbrise { 0% { opacity: 0; transform: translateY(14px); } 100% { opacity: 1; transform: translateY(0); } }
+  @keyframes bbdrop { 0% { opacity: 0; transform: translateY(-8px); } 100% { opacity: 1; transform: translateY(0); } }
+  @keyframes bbpan { 0% { transform: scale(1.04) translate3d(0,0,0); } 100% { transform: scale(1.09) translate3d(0,-1.2%,0); } }
+</style>
+</helmet>
+
+<div style="width:100%;overflow-x:hidden">
+
+<header style="position:fixed;top:0;left:0;right:0;z-index:60;background:rgba(11,11,11,0.62);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);color:#fff;border-bottom:2px solid rgba(255,255,255,0.12)">
+  <div style="display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:clamp(16px,3vw,40px);padding:0 clamp(16px,3vw,40px);height:64px">
+    <div style="display:flex;align-items:center;min-width:0">
+      <a href="Home.dc.html" style="display:flex;flex-direction:column;line-height:1;flex:none">
+        <span style="font-size:17px;font-weight:700;letter-spacing:-0.02em">BioBunBan</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:9px;letter-spacing:0.34em;color:#8a8a8a;margin-top:3px">{{ t.tagline }}</span>
+      </a>
+    </div>
+    <nav style="display:flex;justify-content:center;gap:clamp(14px,2.2vw,32px);font-size:13.5px;letter-spacing:0.14em;text-transform:uppercase;color:#c9c9c9;min-width:0;flex-wrap:nowrap">
+      <div onMouseEnter="{{ openMenu }}" onMouseLeave="{{ closeMenu }}" style="position:relative">
+        <a href="Products.dc.html" style="white-space:nowrap;color:#fff;display:flex;align-items:center;gap:7px" style-hover="color:#F08335">{{ t.navProducts }} <span style="font-size:8px;opacity:0.7">▼</span></a>
+        <div style="position:absolute;top:100%;left:-18px;width:250px;height:16px;display:{{ menuDisplay }}"></div>
+        <div style="position:absolute;top:calc(100% + 14px);left:-18px;min-width:250px;z-index:70;display:{{ menuDisplay }};animation:bbdrop 200ms cubic-bezier(0.2,0.7,0.3,1) both;background:rgba(11,11,11,0.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:2px solid #262626;padding:8px 0;flex-direction:column">
+          <sc-for list="{{ menuCats }}" as="m" hint-placeholder-count="8">
+            <a href="{{ m.href }}" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13px;letter-spacing:0.04em;text-transform:none;color:#c9c9c9;padding:10px 20px;white-space:nowrap" style-hover="color:#F08335;background:#1c1c1c">{{ m.label }}</a>
+          </sc-for>
+        </div>
+      </div>
+      <a href="Manufacturing.dc.html" style="white-space:nowrap" style-hover="color:#F08335">{{ t.navManufacturing }}</a>
+      <a href="Materials.dc.html" style="white-space:nowrap" style-hover="color:#F08335">{{ t.navMaterials }}</a>
+      <a href="About.dc.html" style="white-space:nowrap" style-hover="color:#F08335">{{ t.navAbout }}</a>
+      <a href="Contact.dc.html" style="white-space:nowrap" style-hover="color:#F08335">{{ t.navContact }}</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:clamp(10px,1.6vw,20px);font-size:11.5px;letter-spacing:0.12em;color:#c9c9c9">
+      <button onClick="{{ toggleLang }}" aria-label="Language" style="position:relative;display:flex;align-items:center;gap:0;background:#1c1c1c;border:2px solid #3a3a3a;padding:0;cursor:pointer;font-family:inherit;flex:none" style-hover="border-color:#F08335">
+        <span style="position:absolute;top:0;bottom:0;left:0;width:50%;background:#F08335;transform:{{ langKnob }};transition:transform 260ms cubic-bezier(0.4,0,0.2,1)"></span>
+        <span style="position:relative;z-index:1;width:38px;padding:7px 0;text-align:center;font-size:12px;font-weight:600;color:{{ zhInk }};transition:color 200ms">中</span>
+        <span style="position:relative;z-index:1;width:38px;padding:7px 0;text-align:center;font-size:11px;font-weight:600;letter-spacing:0.08em;color:{{ enInk }};transition:color 200ms">EN</span>
+      </button>
+      <a href="Contact.dc.html" style-hover="color:#F08335">{{ t.account }}</a>
+      <button type="button" onClick="{{ openCart }}" style="display:flex;align-items:center;gap:7px;background:#F08335;color:#0b0b0b;border:0;font-family:inherit;font-size:11.5px;font-weight:600;letter-spacing:0.1em;padding:8px 14px;cursor:pointer" style-hover="background:#fff">{{ t.cart }} <span data-cart-count="1" style="opacity:0.6">0</span></button>
+    </div>
+  </div>
+</header>
+
+<section style="position:relative;background:#0b0b0b;color:#fff;padding:calc(64px + clamp(48px,7vw,110px)) clamp(16px,3vw,40px) clamp(32px,4vw,56px);background-image:linear-gradient(90deg,rgba(11,11,11,0.94) 0%,rgba(11,11,11,0.9) 42%,rgba(11,11,11,0.78) 100%),url('assets/products-hero.png');background-size:cover,cover;background-position:center,center right">
+  <div style="position:relative;max-width:1680px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(22px,3vw,40px)">
+    <div style="display:flex;align-items:baseline;gap:16px;font-size:11px;letter-spacing:0.28em;text-transform:uppercase;color:#F08335;animation:bbrise 800ms ease-out both">
+      <span>{{ t.crumbHome }}</span><span style="color:#4a4a4a">/</span><span style="color:#9b9b9b">{{ t.crumbAll }}</span>
+    </div>
+    <h1 style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-weight:300;font-size:clamp(34px,6vw,92px);line-height:1.06;letter-spacing:-0.02em;max-width:18em;animation:bbrise 1000ms ease-out both">{{ t.pageTitle1 }}<br>{{ t.pageTitle2 }}</h1>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:clamp(20px,3vw,56px);border-top:2px solid #262626;padding-top:24px;animation:bbrise 1200ms ease-out both">
+      <p style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-size:14px;line-height:1.9;color:#c9c9c9;font-weight:300;max-width:40ch">{{ t.pageLead }}</p>
+      <p style="margin:0;font-size:13px;line-height:1.8;color:#c9c9c9;font-weight:300;max-width:38ch">{{ t.pageNote }}</p>
+      <div style="display:flex;align-items:flex-end;justify-content:flex-start">
+        <span style="font-family:Archivo;font-size:clamp(34px,4vw,56px);font-weight:300;letter-spacing:-0.04em;line-height:0.9">{{ count }}<span style="font-size:0.35em;letter-spacing:0.2em;text-transform:uppercase;color:#8a8a8a;margin-left:12px">{{ t.itemsLabel }}</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="position:sticky;top:64px;z-index:40;background:#fff;border-bottom:2px solid #0b0b0b">
+  <div style="max-width:1680px;margin:0 auto;padding:0 clamp(16px,3vw,40px)">
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px;padding:14px 0">
+      <span style="font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#5c5a58">{{ t.filterLabel }}</span>
+      <div style="position:relative">
+        <button type="button" onClick="{{ toggleFilter }}" aria-haspopup="listbox" style="display:flex;align-items:center;justify-content:space-between;gap:24px;width:280px;background:#0b0b0b;color:#fff;border:2px solid #0b0b0b;border-radius:0;font-family:inherit;font-size:12px;font-weight:600;letter-spacing:0.12em;padding:12px 16px;cursor:pointer;text-align:left" style-hover="background:#F08335;border-color:#F08335">
+          <span style="font-family:Archivo,'LXGW WenKai TC',serif">{{ catLabel }}</span>
+          <span style="font-size:9px;line-height:1">▼</span>
+        </button>
+        <div style="position:absolute;top:calc(100% + 2px);left:0;width:280px;z-index:60;background:#fff;border:2px solid #0b0b0b;display:{{ filterDisplay }};flex-direction:column">
+          <sc-for list="{{ cats }}" as="c" hint-placeholder-count="8">
+            <button type="button" onClick="{{ c.pick }}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:{{ c.bg }};color:{{ c.fg }};border:0;border-bottom:1px solid #e2e0df;border-radius:0;font-family:Archivo,'LXGW WenKai TC',serif;font-size:13px;font-weight:400;letter-spacing:0.04em;padding:12px 16px;cursor:pointer;text-align:left" style-hover="background:#f3f2f2;color:#F08335">
+              <span>{{ c.label }}</span>
+              <span style="font-size:10px;color:#8a8a8a;letter-spacing:0.14em">{{ c.n }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+      <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:12.5px;color:#5c5a58">{{ shownLabel }}</span>
+    </div>
+  </div>
+</div>
+
+<section style="max-width:1680px;margin:0 auto;padding:clamp(28px,4vw,56px) clamp(16px,3vw,40px) clamp(64px,9vw,140px)">
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:clamp(20px,2.6vw,40px)">
+    <sc-for list="{{ items }}" as="p" hint-placeholder-count="12">
+      <a href="{{ p.href }}" style="display:flex;flex-direction:column;background:#fff;border:2px solid #0b0b0b" style-hover="background:#f6f5f4">
+        <div style="position:relative;aspect-ratio:1/1;border-bottom:2px solid #e2e0df">
+          <div role="img" aria-label="{{ p.name }}" style="position:absolute;inset:0;background-image:{{ p.imgCss }};background-size:cover;background-position:center"></div>
+          <sc-if value="{{ p.noImg }}" hint-placeholder-val="{{ true }}">
+            <image-slot style="position:absolute;inset:0;width:100%;height:100%" id="{{ p.slotId }}" shape="rect" fit="cover" placeholder="{{ p.slotHint }}"></image-slot>
+          </sc-if>
+        </div>
+        <div style="padding:20px 20px 26px;display:flex;flex-direction:column;gap:10px;flex:1">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+            <span style="font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;color:{{ p.accent }};font-weight:600">{{ p.badge }}</span>
+            <span style="font-size:10.5px;letter-spacing:0.18em;color:#5c5a58">{{ p.num }}</span>
+          </div>
+          <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:19px;font-weight:400;line-height:1.35">{{ p.name }}</span>
+          <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:12.5px;line-height:1.75;color:#5c5a58;font-weight:300">{{ p.note }}</span>
+          <div style="margin-top:auto;padding-top:16px;display:flex;align-items:baseline;gap:10px;border-top:2px solid #e2e0df">
+            <span style="font-family:Archivo,sans-serif;font-size:19px;font-weight:500;letter-spacing:-0.01em;color:{{ p.priceInk }}">{{ p.price }}</span>
+            <span style="font-family:Archivo,sans-serif;font-size:12.5px;color:#8a8785;text-decoration:line-through">{{ p.was }}</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+            <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:12px;color:#8a8785">{{ p.spec }}</span>
+            <span style="font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#0b0b0b">{{ t.view }}</span>
+          </div>
+          <button type="button" onClick="{{ p.add }}" style="margin-top:4px;width:100%;background:#0b0b0b;color:#fff;border:2px solid #0b0b0b;font-family:inherit;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;text-align:left;padding:12px 14px;cursor:pointer" style-hover="background:#F08335;border-color:#F08335;color:#0b0b0b">{{ t.add }}</button>
+        </div>
+      </a>
+    </sc-for>
+  </div>
+  <p style="margin:14px 0 0;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#5c5a58">{{ t.priceNote }}</p>
+</section>
+
+<section style="background:#2B4CA8;color:#fff;padding:clamp(56px,8vw,120px) clamp(16px,3vw,40px)">
+  <div style="max-width:1680px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(28px,5vw,90px);align-items:end">
+    <h2 style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-weight:300;font-size:clamp(26px,4vw,62px);line-height:1.14;letter-spacing:-0.02em;max-width:14em">{{ t.ctaTitle }}</h2>
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <p style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-size:14px;line-height:1.9;font-weight:300;max-width:40ch">{{ t.ctaBody }}</p>
+      <a href="Contact.dc.html" style="align-self:start;background:#fff;color:#0b0b0b;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;padding:14px 22px" style-hover="background:#0b0b0b;color:#fff">{{ t.ctaBtn }}</a>
+    </div>
+  </div>
+</section>
+
+<footer style="background:#0b0b0b;color:#fff;padding:clamp(56px,7vw,110px) clamp(16px,3vw,40px) 40px">
+  <div style="max-width:1680px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:clamp(28px,4vw,64px);border-bottom:2px solid #262626;padding-bottom:clamp(36px,5vw,64px)">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:22px;font-weight:700;letter-spacing:-0.02em">BioBunBan</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:12px;letter-spacing:0.3em;color:#8a8a8a">{{ t.tagline }}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:#5f5f5f">{{ t.fAbout }}</span>
+        <a href="About.dc.html" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fAbout1 }}</a>
+        <a href="About.dc.html" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fAbout2 }}</a>
+        <a href="About.dc.html" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fAbout3 }}</a>
+        <a href="Materials.dc.html" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fAbout4 }}</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:#5f5f5f">{{ t.fService }}</span>
+        <a href="Contact.dc.html" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fService1 }}</a>
+        <a href="Contact.dc.html" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fService2 }}</a>
+        <a href="Contact.dc.html" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fService3 }}</a>
+        <a href="Contact.dc.html" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fService4 }}</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:#5f5f5f">{{ t.fTouch }}</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9">{{ t.fPhone }}</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9">{{ t.fHours }}</span>
+        <a href="mailto:service@biobunban.com" style="font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">service@biobunban.com</a>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;line-height:1.7;color:#8a8a8a">{{ t.fAddress }}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:#5f5f5f">{{ t.fFollow }}</span>
+        <a href="https://www.facebook.com/biobunban" style="font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">Facebook</a>
+        <a href="https://www.instagram.com/biobunban/" style="font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">Instagram</a>
+        <a href="https://lin.ee/VEZ2qUi" style="font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">LINE</a>
+        <a href="https://www.youtube.com/@BioBunBan" style="font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">YouTube</a>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;padding-top:28px;font-size:11px;letter-spacing:0.14em;color:#5f5f5f">
+      <span>{{ t.copyright }}</span>
+      <span>{{ t.place }}</span>
+    </div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;zh&quot;,&quot;options&quot;:[&quot;zh&quot;,&quot;en&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Language&quot;}}">
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    this.state = { lang: p.defaultLang === 'en' ? 'en' : 'zh', cat: 'all', menu: false, filterOpen: false };
+  }
+  componentDidMount() {
+    try {
+      import('./reveal.js').then(m => m.setupReveal(document)).catch(() => {});
+    } catch (e) {}
+    const h = (location.hash || '').replace('#', '');
+    if (h && this.catKeys().indexOf(h) !== -1) this.setState({ cat: h });
+    this._onHash = () => {
+      const k = (location.hash || '').replace('#', '');
+      if (this.catKeys().indexOf(k) !== -1) this.setState({ cat: k, menu: false });
+    };
+    window.addEventListener('hashchange', this._onHash);
+    this._onDoc = (e) => {
+      if (!this.state.filterOpen) return;
+      const el = e.target;
+      if (el && el.closest && el.closest('[aria-haspopup="listbox"]')) return;
+      this.setState({ filterOpen: false });
+    };
+    document.addEventListener('click', this._onDoc);
+    try {
+      const saved = localStorage.getItem('bb-lang');
+      if ((saved === 'en' || saved === 'zh') && saved !== this.state.lang) this.setState({ lang: saved });
+    } catch (e) {}
+  }
+  componentWillUnmount() { if (this._onHash) window.removeEventListener('hashchange', this._onHash); }
+  setLang(l) {
+    try { localStorage.setItem('bb-lang', l); } catch (e) {}
+    this.setState({ lang: l });
+    if (document.documentElement) document.documentElement.lang = l === 'en' ? 'en' : 'zh-Hant';
+  }
+  catalog() {
+    const B = '#2B4CA8', O = '#F08335', K = '#0b0b0b';
+    return [
+      { id: 'focus-well', cat: 'focus', accent: B, name: '【2026 加班族／考生福音】Focus Well 益專思 500 益生菌', badgeZh: '情緒穩了，專注就來了', badgeEn: 'For long days', noteZh: '輕盈酸甜風味，思緒的精準導航。', noteEn: 'Light sweet-tart flavour. Precise navigation for the mind.', spec: '30 包／盒', price: 2398 },
+      { id: 'lzdch', cat: 'partner', accent: K, name: '【益遼養】獨家專利LZDCH活醣肽® 靈芝萃取 病後補養 提升防護力', badgeZh: '「獨家專利」創新「LZDCH活醣肽®」', badgeEn: 'Partner product', noteZh: '獨家專利活醣肽®，病後補養、提升防護力。', noteEn: 'Patented LZDCH glycopeptide. Recovery support and defence.', spec: '禮盒／盒', price: 2496, was: 3120 },
+      { id: 'metabospark-plus', cat: 'burning', accent: O, name: '【2026 外食族／久坐族福音】燃益 GO EX PLUS 益生菌 夏日莓果茶風味', badgeZh: '不坐椅子的 CEO，啟動每日代謝', badgeEn: 'Eating out, sitting long', noteZh: '夏日莓果茶風味，日常代謝的加強版。', noteEn: 'Summer berry tea. The reinforced version for daily metabolism.', spec: '30 包／盒', price: 2398 },
+      { id: 'glow-well', cat: 'women', accent: O, name: '(2026)新春商品【女性日常呵護】Glow Well 益光采', badgeZh: '醫師研發高規格配方！私密呵護 × 美', badgeEn: 'New year · daily care', noteZh: '全方位女性益生菌，日常的呵護。', noteEn: 'A women\u2019s probiotic for everyday care.', spec: '30 包／盒', price: 2398 },
+      { id: 'sleep-well', cat: 'sommeil', accent: B, name: '(2026)新春商品【調節自體時鐘】Sleep Well 益優眠', badgeZh: '舒適睡眠優良方案', badgeEn: 'New year · body clock', noteZh: '調節自體時鐘，讓入睡回到自己的節奏。', noteEn: 'Regulates your own clock so falling asleep returns to your rhythm.', spec: '30 包／盒', price: 2398 },
+      { id: 'metabospark-ex', cat: 'burning', accent: O, name: '【辦公室必備小物】燃益GO EX益生菌 夏日莓果茶風味', badgeZh: '不作椅子的CEO，每日簡易GO', badgeEn: 'Desk essential', noteZh: '夏日莓果茶風味，放在抽屜裡的那一盒。', noteEn: 'Summer berry tea. The box that lives in your desk drawer.', spec: '30 包／盒', price: 2380 },
+      { id: 'helos-matcha', cat: 'helos', accent: O, name: '【跑趴應酬必備】DR. HELOS 酒前益生菌 清新抹茶風味', badgeZh: '酒前來一包，續航一整晚！', badgeEn: 'Party companion', noteZh: '清新抹茶風味，跑趴、應酬之王。', noteEn: 'Fresh matcha flavour. King of the night out.', spec: '10 包／盒', price: 900 },
+      { id: 'helos-classic', cat: 'helos', accent: O, name: '【享受舒暢的微醺】BioBunBan Dr. Helos 酒前益生菌', badgeZh: '微醺無負擔，守護你的每一杯歡樂！', badgeEn: 'Before drinking', noteZh: '飲酒前一包，隔日舒適再出發。', noteEn: 'One sachet before drinking, for an easier next morning.', spec: '10 包／盒', price: 900 },
+      { id: 'bxb-001', cat: 'strain', accent: K, name: 'BXB-001 副乾酪乳桿菌', badgeZh: '多功能性的 BXB-001 副乾酪乳桿菌', badgeEn: 'L. paracasei BXB-001', noteZh: '自有菌株，供代工與研發合作使用。', noteEn: 'Proprietary strain for OEM and R&D partners.', spec: '菌株授權', price: 25000 },
+      { id: 'bxb-003', cat: 'strain', accent: K, name: 'BXB-003 副乾酪乳桿菌', badgeZh: '多功能性的 BXB-003 副乾酪乳桿菌', badgeEn: 'L. paracasei BXB-003', noteZh: '自有菌株，供代工與研發合作使用。', noteEn: 'Proprietary strain for OEM and R&D partners.', spec: '菌株授權', price: 25000 },
+      { id: 'bxb-010', cat: 'strain', accent: K, name: 'BXB-010 羅伊氏乳桿菌', badgeZh: '更耐溫度的挑戰', badgeEn: 'L. reuteri BXB-010', noteZh: '耐溫表現佳，適用高溫製程。', noteEn: 'Heat-tolerant, suited to high-temperature processes.', spec: '菌株授權', price: 30000 },
+      { id: 'sc-shitous', cat: 'stemcell', accent: K, name: '雪透絲(Shitous) 天山雪蓮幹細胞', badgeZh: '純淨、多樣且豐富的精華', badgeEn: 'Snow lotus stem cell', noteZh: '天山雪蓮植物幹細胞原料。', noteEn: 'Snow lotus plant stem cell ingredient.', spec: '原料', price: 80000 },
+      { id: 'sc-romask', cat: 'stemcell', accent: K, name: '蘿瑪仕(Romask) 玫瑰幹細胞', badgeZh: '純粹的多樣豐富精華', badgeEn: 'Rose stem cell', noteZh: '玫瑰植物幹細胞原料。', noteEn: 'Rose plant stem cell ingredient.', spec: '原料', price: 75000 },
+      { id: 'sc-theresa', cat: 'stemcell', accent: K, name: '泰麗莎(Theresa) 積雪草幹細胞', badgeZh: '純粹的多樣豐富精華', badgeEn: 'Centella stem cell', noteZh: '積雪草植物幹細胞原料。', noteEn: 'Centella plant stem cell ingredient.', spec: '原料', price: 45000 },
+      { id: 'sc-zeffron', cat: 'stemcell', accent: K, name: '紫馥蘭(Zeffron) 藏紅花幹細胞', badgeZh: '純淨、多樣且豐富的精華', badgeEn: 'Saffron stem cell', noteZh: '藏紅花植物幹細胞原料。', noteEn: 'Saffron plant stem cell ingredient.', spec: '原料', price: 68000 },
+      { id: 'sc-ratiia', cat: 'stemcell', accent: K, name: '萊蒂雅(Ratiia) 水稻幹細胞', badgeZh: '純粹的多樣豐富精華', badgeEn: 'Rice stem cell', noteZh: '水稻植物幹細胞原料。', noteEn: 'Rice plant stem cell ingredient.', spec: '原料', price: 55000 },
+      { id: 'sc-pangisen', cat: 'stemcell', accent: K, name: '潘吉森(Pangisen) 人蔘幹細胞', badgeZh: '純粹的多樣豐富精華', badgeEn: 'Ginseng stem cell', noteZh: '人蔘植物幹細胞原料。', noteEn: 'Ginseng plant stem cell ingredient.', spec: '原料', price: 78000 },
+      { id: 'sommeil', cat: 'sommeil', accent: B, name: '【調節自體時鐘】Sommeil 睡咩晚安益生菌', badgeZh: '新的睡眠解決方案', badgeEn: 'For light sleepers', noteZh: '調節自體時鐘的膠囊型配方。', noteEn: 'A capsule formulation for your own clock.', spec: '60 粒／盒', price: 4200 },
+      { id: 'pp-serum', cat: 'phytopure', accent: K, name: '【自然植萃，溫和潤養】PhytoPure植・萃 補水修復玄米精華', badgeZh: '將最純淨的賦活力量注入到您的肌膚', badgeEn: 'Rice serum', noteZh: '玄米萃取，補水與修復。', noteEn: 'Brown rice extract for hydration and repair.', spec: '30 mL／瓶', price: 1300 },
+      { id: 'pp-creme', cat: 'phytopure', accent: K, name: '【煥活彈亮光澤肌】PhytoPure植・萃 深層鎖水 積雪草凝霜', badgeZh: '25+開始，保養不將就！', badgeEn: 'Centella cream', noteZh: '深層鎖水的凝霜質地。', noteEn: 'A gel cream that locks moisture in.', spec: '30 g／瓶', price: 900 },
+      { id: 'pp-moisturizing', cat: 'phytopure', accent: K, name: '【為肌膚注入新生能量】PhytoPure植・萃 水漾保濕 天山雪蓮前導液', badgeZh: '日曬修復 × 水潤屏障，喚醒肌膚防禦力', badgeEn: 'Prep essence', noteZh: '水漾保濕，上妝前與保養前的第一層。', noteEn: 'Hydrating first layer, before everything else.', spec: '100 mL／瓶', price: 900 },
+      { id: 'pp-set', cat: 'phytopure', accent: K, name: '【完整的保養修復組合】PhytoPure 植・萃潤澤水漾系列禮盒', badgeZh: '更純粹的自然呵護力', badgeEn: 'Complete routine', noteZh: '前導液＋精華液＋乳霜（需禮盒請備註）。', noteEn: 'Essence + serum + cream (note at checkout for gift box).', spec: '3 件／組', price: 3100 }
+    ];
+  }
+  catKeys() { return ['all', 'helos', 'burning', 'sommeil', 'women', 'focus', 'phytopure', 'partner', 'strain', 'stemcell']; }
+  catLabels() {
+    return {
+      zh: { all: '全部商品', helos: '跑趴伴侶 Dr. Helos', burning: '燃燒吧 Burning', women: '全方位女性', sommeil: '淺眠好幫手 Sommeil', phytopure: '植・萃 PhytoPure', focus: '思緒的精準導航', partner: '合作夥伴商品', strain: '專利菌株原料', stemcell: '植物幹細胞原料' },
+      en: { all: 'All products', helos: 'Dr. Helos', burning: 'Burning', women: 'Women', sommeil: 'Sommeil', phytopure: 'PhytoPure', focus: 'Focus', partner: 'Partner', strain: 'Strains', stemcell: 'Stem cells' }
+    };
+  }
+  dict() {
+    return {
+      zh: {
+        tagline: '生物的魔法師',
+        navProducts: '商品', navManufacturing: '製造', navMaterials: '原料', navAbout: '關於', navContact: '聯絡',
+        account: '會員', cart: '購物車',
+        crumbHome: '首頁', crumbAll: '所有商品',
+        pageTitle1: '十三項商品，', pageTitle2: '對應一天裡的不同時刻',
+        pageLead: '益生菌、萃取物與保養品，依使用時機分類。每一項都在工廠內完成配方、混合與充填。',
+        pageNote: '商品照片為預留位置，可直接拖入官方產品圖替換。',
+        itemsLabel: '件商品', view: '查看', filterLabel: '商品分類', add: '加入購物車',
+        priceNote: '價格為官網售價，未稅前含運另計。',
+        ctaTitle: '需要代工或通路合作？',
+        ctaBody: '我們同時承接配方開發與代工生產，從原料到充填一次完成。',
+        ctaBtn: '聯絡我們',
+        fAbout: '關於', fAbout1: '關於我們', fAbout2: '理念', fAbout3: '安心宣言', fAbout4: '原料展示',
+        fService: '服務', fService1: '客服中心', fService2: '退款政策', fService3: '隱私政策', fService4: '服務條款',
+        fTouch: '聯絡我們', fPhone: '客服專線：02-6605-7658', fHours: '客服時間：09:00–17:00',
+        fAddress: '桃園市中壢區高鐵站前西路一段268號12F-8',
+        fFollow: '追蹤我們',
+        copyright: '© 2026 BioBunBan 生物的魔法師. 版權所有.', place: '桃園 · 台灣'
+      },
+      en: {
+        tagline: 'THE BIO MAGICIANS',
+        navProducts: 'Products', navManufacturing: 'Manufacturing', navMaterials: 'Materials', navAbout: 'About', navContact: 'Contact',
+        account: 'Account', cart: 'CART',
+        crumbHome: 'Home', crumbAll: 'All products',
+        pageTitle1: 'Thirteen products,', pageTitle2: 'one for each moment of the day',
+        pageLead: 'Probiotics, extracts and skincare, sorted by when you use them. Every item is formulated, blended and filled in our own plant.',
+        pageNote: 'Product photography is a placeholder — drop the official images straight in.',
+        itemsLabel: 'items', view: 'View', filterLabel: 'Category', add: 'Add to cart',
+        priceNote: 'Prices as listed on the official store, in NT dollars.',
+        ctaTitle: 'Looking for OEM or retail partnership?',
+        ctaBody: 'We take on formulation development and contract manufacturing, from raw material to fill.',
+        ctaBtn: 'Contact us',
+        fAbout: 'About', fAbout1: 'About us', fAbout2: 'Philosophy', fAbout3: 'Safety statement', fAbout4: 'Materials',
+        fService: 'Service', fService1: 'Customer service', fService2: 'Refund policy', fService3: 'Privacy policy', fService4: 'Terms of service',
+        fTouch: 'Get in touch', fPhone: 'Service line: +886 2-6605-7658', fHours: 'Hours: 09:00–17:00',
+        fAddress: '12F-8, No. 268, Sec. 1, Gaotie Zhanqian W. Rd., Zhongli, Taoyuan, Taiwan',
+        fFollow: 'Follow',
+        copyright: '© 2026 BioBunBan. All rights reserved.', place: 'Taoyuan · Taiwan'
+      }
+    };
+  }
+  renderVals() {
+    const SHOTS = ['focus-well', 'metabospark-plus', 'lzdch', 'sleep-well', 'helos-matcha', 'pp-set', 'metabospark-ex', 'glow-well', 'sc-shitous', 'sc-romask', 'sc-theresa', 'sc-zeffron', 'helos-classic', 'pp-creme', 'sommeil', 'sc-ratiia', 'sc-pangisen', 'pp-moisturizing', 'pp-serum'];
+    const lang = this.state.lang === 'en' ? 'en' : 'zh';
+    const t = this.dict()[lang];
+    const labels = this.catLabels()[lang];
+    const cat = this.state.cat;
+    const all = this.catalog();
+    const RAW = ['strain', 'stemcell'];
+    const retail = all.filter(p => RAW.indexOf(p.cat) === -1);
+    const list = cat === 'all' ? retail : all.filter(p => p.cat === cat);
+    const keys = this.catKeys();
+    return {
+      t: t,
+      count: retail.length,
+      cat: cat,
+      shownLabel: lang === 'zh' ? ('顯示 ' + list.length + ' 件・' + labels[cat]) : (list.length + ' shown · ' + labels[cat]),
+      catLabel: labels[cat],
+      filterDisplay: this.state.filterOpen ? 'flex' : 'none',
+      toggleFilter: () => this.setState(s => ({ filterOpen: !s.filterOpen })),
+      menuDisplay: this.state.menu ? 'flex' : 'none',
+      openMenu: () => this.setState({ menu: true }),
+      closeMenu: () => this.setState({ menu: false }),
+      menuCats: keys.map(k => ({ key: k, label: labels[k], href: 'Products.dc.html#' + k })),
+      cats: keys.map(k => ({
+        key: k,
+        label: labels[k],
+        n: k === 'all' ? retail.length : all.filter(p => p.cat === k).length,
+        bg: k === cat ? '#0b0b0b' : '#fff',
+        fg: k === cat ? '#fff' : '#0b0b0b',
+        pick: () => this.setState({ cat: k, filterOpen: false })
+      })),
+      items: list.map((p, i) => ({
+        name: p.name,
+        badge: lang === 'zh' ? p.badgeZh : p.badgeEn,
+        note: lang === 'zh' ? p.noteZh : p.noteEn,
+        spec: p.spec,
+        accent: p.accent === '#F08335' ? '#A8431A' : (p.accent === '#2B4CA8' ? '#2B4CA8' : '#0b0b0b'),
+        num: String(i + 1).padStart(2, '0'),
+        href: 'Product.dc.html#' + p.id,
+        hasImg: SHOTS.indexOf(p.id) !== -1,
+        noImg: SHOTS.indexOf(p.id) === -1,
+        imgCss: SHOTS.indexOf(p.id) !== -1 ? "url('assets/products/" + p.id + ".png')" : 'none',
+        slotId: 'bb-cat-' + p.id,
+        slotHint: p.name,
+        add: (e) => {
+          if (e) { e.preventDefault(); e.stopPropagation(); }
+          if (window.BBCart) window.BBCart.add({ id: p.id, name: p.name, price: p.price, spec: p.spec, img: SHOTS.indexOf(p.id) !== -1 ? 'assets/products/' + p.id + '.png' : '' }, 1);
+        },
+        price: 'NT$' + p.price.toLocaleString('en-US'),
+        was: p.was ? 'NT$' + p.was.toLocaleString('en-US') : '',
+        priceInk: p.was ? '#C0392B' : '#0b0b0b'
+      })),
+      langKnob: lang === 'zh' ? 'translateX(0)' : 'translateX(100%)',
+      zhInk: lang === 'zh' ? '#0b0b0b' : '#8a8a8a',
+      enInk: lang === 'en' ? '#0b0b0b' : '#8a8a8a',
+      openCart: () => { if (window.BBCart) window.BBCart.open(); },
+      toggleLang: () => this.setLang(lang === 'zh' ? 'en' : 'zh')
+    };
+  }
+}
+</script>
+</body>
+</html>

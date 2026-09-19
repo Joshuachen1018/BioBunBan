@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/modernist-288dda3c-e1fa-4c2f-89ab-b0d8489feea2/styles.css">
+<script src="_ds/modernist-288dda3c-e1fa-4c2f-89ab-b0d8489feea2/_ds_bundle.js"></script>
+<script src="./cart.js"></script>
+<script src="./image-slot.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=LXGW+WenKai+TC:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #ffffff; color: #0b0b0b; font-family: Archivo, Archivo, "LXGW WenKai TC", serif; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: #F08335; }
+  ::selection { background: #2B4CA8; color: #fff; }
+  @keyframes bbrise { 0% { opacity: 0; transform: translateY(14px); } 100% { opacity: 1; transform: translateY(0); } }
+  @keyframes bbdrop { 0% { opacity: 0; transform: translateY(-8px); } 100% { opacity: 1; transform: translateY(0); } }
+  @keyframes bbpan { 0% { transform: scale(1.04) translate3d(0,0,0); } 100% { transform: scale(1.09) translate3d(0,-1.2%,0); } }
+</style>
+</helmet>
+
+<div style="width:100%;overflow-x:hidden">
+
+<header style="position:fixed;top:0;left:0;right:0;z-index:60;background:rgba(11,11,11,0.62);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);color:#fff;border-bottom:2px solid rgba(255,255,255,0.12)">
+  <div style="display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:clamp(16px,3vw,40px);padding:0 clamp(16px,3vw,40px);height:64px">
+    <div style="display:flex;align-items:center;min-width:0">
+      <a href="Home.dc.html" style="display:flex;flex-direction:column;line-height:1;flex:none">
+        <span style="font-size:17px;font-weight:700;letter-spacing:-0.02em">BioBunBan</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:9px;letter-spacing:0.34em;color:#8a8a8a;margin-top:3px">{{ t.tagline }}</span>
+      </a>
+    </div>
+    <nav style="display:flex;justify-content:center;gap:clamp(14px,2.2vw,32px);font-size:13.5px;letter-spacing:0.14em;text-transform:uppercase;color:#c9c9c9;min-width:0;flex-wrap:nowrap">
+      <div onMouseEnter="{{ openMenu }}" onMouseLeave="{{ closeMenu }}" style="position:relative">
+        <a href="Products.dc.html" style="white-space:nowrap;display:flex;align-items:center;gap:7px" style-hover="color:#F08335">{{ t.navProducts }} <span style="font-size:8px;opacity:0.7">▼</span></a>
+        <div style="position:absolute;top:100%;left:-18px;width:250px;height:16px;display:{{ menuDisplay }}"></div>
+        <div style="position:absolute;top:calc(100% + 14px);left:-18px;min-width:250px;z-index:70;display:{{ menuDisplay }};animation:bbdrop 200ms cubic-bezier(0.2,0.7,0.3,1) both;background:rgba(11,11,11,0.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:2px solid #262626;padding:8px 0;flex-direction:column">
+          <sc-for list="{{ menuCats }}" as="m" hint-placeholder-count="8">
+            <a href="{{ m.href }}" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13px;letter-spacing:0.04em;text-transform:none;color:#c9c9c9;padding:10px 20px;white-space:nowrap" style-hover="color:#F08335;background:#1c1c1c">{{ m.label }}</a>
+          </sc-for>
+        </div>
+      </div>
+      <a href="Manufacturing.dc.html" style="white-space:nowrap" style-hover="color:#F08335">{{ t.navManufacturing }}</a>
+      <a href="Materials.dc.html" style="white-space:nowrap" style-hover="color:#F08335">{{ t.navMaterials }}</a>
+      <a href="About.dc.html" style="white-space:nowrap;color:#F08335">{{ t.navAbout }}</a>
+      <a href="Contact.dc.html" style="white-space:nowrap" style-hover="color:#F08335">{{ t.navContact }}</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:clamp(10px,1.6vw,20px);font-size:11.5px;letter-spacing:0.12em;color:#c9c9c9">
+      <button onClick="{{ toggleLang }}" aria-label="Language" style="position:relative;display:flex;align-items:center;gap:0;background:#1c1c1c;border:2px solid #3a3a3a;padding:0;cursor:pointer;font-family:inherit;flex:none" style-hover="border-color:#F08335">
+        <span style="position:absolute;top:0;bottom:0;left:0;width:50%;background:#F08335;transform:{{ langKnob }};transition:transform 260ms cubic-bezier(0.4,0,0.2,1)"></span>
+        <span style="position:relative;z-index:1;width:38px;padding:7px 0;text-align:center;font-size:12px;font-weight:600;color:{{ zhInk }};transition:color 200ms">中</span>
+        <span style="position:relative;z-index:1;width:38px;padding:7px 0;text-align:center;font-size:11px;font-weight:600;letter-spacing:0.08em;color:{{ enInk }};transition:color 200ms">EN</span>
+      </button>
+      <a href="Home.dc.html" style-hover="color:#F08335">{{ t.account }}</a>
+      <button type="button" onClick="{{ openCart }}" style="display:flex;align-items:center;gap:7px;background:#F08335;color:#0b0b0b;border:0;font-family:inherit;font-size:11.5px;font-weight:600;letter-spacing:0.1em;padding:8px 14px;cursor:pointer" style-hover="background:#fff">{{ t.cart }} <span data-cart-count="1" style="opacity:0.6">0</span></button>
+    </div>
+  </div>
+</header>
+
+<section id="top" style="position:relative;background:#0b0b0b;color:#fff;padding:clamp(120px,14vw,200px) clamp(16px,3vw,40px) clamp(48px,7vw,96px);overflow:hidden">
+  <img src="assets/about-hero-ocean.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.02) contrast(1.04) brightness(0.72)">
+  <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(11,11,11,0.92) 0%, rgba(11,11,11,0.5) 55%, rgba(11,11,11,0.72) 100%);pointer-events:none"></div>
+  <div style="position:relative;max-width:1680px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(24px,4vw,44px)">
+    <div style="display:flex;align-items:baseline;gap:16px;font-size:11px;letter-spacing:0.28em;text-transform:uppercase;color:#F08335;animation:bbrise 800ms ease-out both">
+      <span>About BioBunBan</span><span style="color:#4a4a4a">—</span><span style="color:#9b9b9b">{{ t.heroKicker2 }}</span>
+    </div>
+    <h1 style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-weight:300;font-size:clamp(36px,6.6vw,104px);line-height:1.06;letter-spacing:-0.02em;max-width:16em;animation:bbrise 1000ms ease-out both">{{ t.heroTitle1 }}<br>{{ t.heroTitle2 }}</h1>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:clamp(20px,3vw,56px);border-top:2px solid #262626;padding-top:24px;animation:bbrise 1200ms ease-out both">
+      <p style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-size:clamp(15px,1.5vw,20px);line-height:1.75;font-weight:300;color:#e6e6e6;max-width:34ch">{{ t.heroLead }}</p>
+      <p style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;line-height:1.95;color:#9b9b9b;font-weight:300;max-width:40ch">{{ t.heroSub }}</p>
+      <nav style="display:flex;flex-direction:column;gap:2px;align-self:start">
+        <a href="#founder" style="display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding:11px 0;border-bottom:2px solid #262626;font-size:12.5px;letter-spacing:0.14em;text-transform:uppercase;color:#c9c9c9" style-hover="color:#F08335">{{ t.jump1 }} <span style="font-size:14px">&#8594;</span></a>
+        <a href="#values" style="display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding:11px 0;border-bottom:2px solid #262626;font-size:12.5px;letter-spacing:0.14em;text-transform:uppercase;color:#c9c9c9" style-hover="color:#F08335">{{ t.jump2 }} <span style="font-size:14px">&#8594;</span></a>
+        <a href="#company" style="display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding:11px 0;border-bottom:2px solid #262626;font-size:12.5px;letter-spacing:0.14em;text-transform:uppercase;color:#c9c9c9" style-hover="color:#F08335">{{ t.jump3 }} <span style="font-size:14px">&#8594;</span></a>
+        <a href="#promise" style="display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding:11px 0;border-bottom:2px solid #262626;font-size:12.5px;letter-spacing:0.14em;text-transform:uppercase;color:#c9c9c9" style-hover="color:#F08335">{{ t.jump4 }} <span style="font-size:14px">&#8594;</span></a>
+      </nav>
+    </div>
+  </div>
+</section>
+
+<section id="founder" style="max-width:1680px;margin:0 auto;padding:clamp(72px,11vw,170px) clamp(16px,3vw,40px)">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(28px,5vw,90px);align-items:start">
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <span style="font-size:11px;letter-spacing:0.28em;text-transform:uppercase;color:#F08335">{{ t.k01 }}</span>
+      <h2 style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-weight:300;font-size:clamp(28px,4vw,62px);line-height:1.14;letter-spacing:-0.02em;max-width:12em">{{ t.founderTitle1 }}<br>{{ t.founderTitle2 }}</h2>
+      <div style="position:relative;aspect-ratio:4/5;max-width:420px;width:100%;margin-top:12px">
+        <image-slot style="position:absolute;inset:0;width:100%;height:100%" id="bb-founder-portrait" shape="rect" fit="cover" placeholder="創辦人楊正 肖像"></image-slot>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:20px">{{ t.founderName }}</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:12.5px;letter-spacing:0.18em;color:#5c5a58">{{ t.founderRole }}</span>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:24px;padding-top:clamp(0px,3vw,40px)">
+      <p style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-size:clamp(19px,2.1vw,30px);line-height:1.6;font-weight:300;max-width:26ch">{{ t.founderPull }}</p>
+      <div style="height:2px;background:#0b0b0b;width:72px"></div>
+      <p style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-size:15px;line-height:2;color:#3a3a3a;font-weight:300;max-width:46ch">{{ t.founderP1 }}</p>
+      <p style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-size:15px;line-height:2;color:#3a3a3a;font-weight:300;max-width:46ch">{{ t.founderP2 }}</p>
+      <p style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-size:13px;line-height:1.9;color:#8a8785;font-weight:300;max-width:46ch">{{ t.founderNote }}</p>
+    </div>
+  </div>
+</section>
+
+<section id="values" style="background:#0b0b0b;color:#fff;padding:clamp(72px,10vw,160px) clamp(16px,3vw,40px)">
+  <div style="max-width:1680px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(24px,4vw,80px);align-items:end;border-bottom:2px solid #262626;padding-bottom:clamp(24px,3vw,40px)">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <span style="font-size:11px;letter-spacing:0.28em;text-transform:uppercase;color:#2B4CA8">{{ t.k02 }}</span>
+        <h2 style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-weight:300;font-size:clamp(30px,4.4vw,68px);line-height:1.12;letter-spacing:-0.02em">{{ t.valuesTitle }}</h2>
+      </div>
+      <p style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-size:14px;line-height:1.95;color:#9b9b9b;font-weight:300;max-width:44ch">{{ t.valuesLead }}</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:0">
+      <div style="padding:clamp(28px,3.4vw,52px) clamp(20px,2.4vw,40px) clamp(36px,4vw,64px);border-bottom:2px solid #262626;box-shadow:2px 0 0 #262626;display:flex;flex-direction:column;gap:16px">
+        <span style="font-family:Archivo;font-size:12px;letter-spacing:0.2em;color:#F08335;font-weight:600">01</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:clamp(24px,2.6vw,38px);font-weight:300;line-height:1.2">{{ t.v1Title }}</span>
+        <span style="font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#5f5f5f">{{ t.v1Latin }}</span>
+        <p style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;line-height:1.95;color:#9b9b9b;font-weight:300">{{ t.v1Body }}</p>
+      </div>
+      <div style="padding:clamp(28px,3.4vw,52px) clamp(20px,2.4vw,40px) clamp(36px,4vw,64px);border-bottom:2px solid #262626;box-shadow:2px 0 0 #262626;display:flex;flex-direction:column;gap:16px">
+        <span style="font-family:Archivo;font-size:12px;letter-spacing:0.2em;color:#F08335;font-weight:600">02</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:clamp(24px,2.6vw,38px);font-weight:300;line-height:1.2">{{ t.v2Title }}</span>
+        <span style="font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#5f5f5f">{{ t.v2Latin }}</span>
+        <p style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;line-height:1.95;color:#9b9b9b;font-weight:300">{{ t.v2Body }}</p>
+      </div>
+      <div style="padding:clamp(28px,3.4vw,52px) clamp(20px,2.4vw,40px) clamp(36px,4vw,64px);border-bottom:2px solid #262626;display:flex;flex-direction:column;gap:16px">
+        <span style="font-family:Archivo;font-size:12px;letter-spacing:0.2em;color:#2B4CA8;font-weight:600">03</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:clamp(24px,2.6vw,38px);font-weight:300;line-height:1.2">{{ t.v3Title }}</span>
+        <span style="font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#5f5f5f">{{ t.v3Latin }}</span>
+        <p style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;line-height:1.95;color:#9b9b9b;font-weight:300">{{ t.v3Body }}</p>
+      </div>
+    </div>
+    <p style="margin:26px 0 0;font-family:Archivo,'LXGW WenKai TC',serif;font-size:13px;line-height:1.95;color:#8a8a8a;font-weight:300;max-width:60ch">{{ t.valuesFoot }}</p>
+  </div>
+</section>
+
+<section id="company" style="max-width:1680px;margin:0 auto;padding:clamp(72px,11vw,170px) clamp(16px,3vw,40px)">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(28px,5vw,90px);align-items:start">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <span style="font-size:11px;letter-spacing:0.28em;text-transform:uppercase;color:#F08335">{{ t.k03 }}</span>
+      <h2 style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-weight:300;font-size:clamp(30px,4.4vw,68px);line-height:1.12;letter-spacing:-0.02em;max-width:11em">{{ t.companyTitle1 }}<br>{{ t.companyTitle2 }}</h2>
+    </div>
+    <p style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-size:clamp(14px,1.4vw,18px);line-height:1.9;font-weight:300;color:#3a3a3a;max-width:44ch;padding-top:clamp(0px,2vw,24px)">{{ t.companyLead }}</p>
+  </div>
+
+  <div style="margin-top:clamp(40px,6vw,88px);border-top:2px solid #0b0b0b">
+    <div style="display:grid;grid-template-columns:64px minmax(0,1.1fr) minmax(0,1fr) 110px;gap:clamp(12px,2.5vw,40px);align-items:baseline;padding:clamp(22px,3vw,38px) 0;border-bottom:2px solid #e2e0df">
+      <span style="font-size:12px;letter-spacing:0.18em;color:#2B4CA8;font-weight:600">01</span>
+      <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:clamp(20px,2.7vw,40px);font-weight:300;line-height:1.18">{{ t.a1Title }}</span>
+      <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;line-height:1.9;color:#5c5a58;font-weight:300">{{ t.a1Body }}</span>
+      <span style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#5c5a58;text-align:right">{{ t.a1Tag }}</span>
+    </div>
+    <div style="display:grid;grid-template-columns:64px minmax(0,1.1fr) minmax(0,1fr) 110px;gap:clamp(12px,2.5vw,40px);align-items:baseline;padding:clamp(22px,3vw,38px) 0;border-bottom:2px solid #e2e0df">
+      <span style="font-size:12px;letter-spacing:0.18em;color:#2B4CA8;font-weight:600">02</span>
+      <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:clamp(20px,2.7vw,40px);font-weight:300;line-height:1.18">{{ t.a2Title }}</span>
+      <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;line-height:1.9;color:#5c5a58;font-weight:300">{{ t.a2Body }}</span>
+      <span style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#5c5a58;text-align:right">{{ t.a2Tag }}</span>
+    </div>
+    <div style="display:grid;grid-template-columns:64px minmax(0,1.1fr) minmax(0,1fr) 110px;gap:clamp(12px,2.5vw,40px);align-items:baseline;padding:clamp(22px,3vw,38px) 0;border-bottom:2px solid #e2e0df">
+      <span style="font-size:12px;letter-spacing:0.18em;color:#F08335;font-weight:600">03</span>
+      <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:clamp(20px,2.7vw,40px);font-weight:300;line-height:1.18">{{ t.a3Title }}</span>
+      <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;line-height:1.9;color:#5c5a58;font-weight:300">{{ t.a3Body }}</span>
+      <span style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#5c5a58;text-align:right">{{ t.a3Tag }}</span>
+    </div>
+    <div style="display:grid;grid-template-columns:64px minmax(0,1.1fr) minmax(0,1fr) 110px;gap:clamp(12px,2.5vw,40px);align-items:baseline;padding:clamp(22px,3vw,38px) 0;border-bottom:2px solid #0b0b0b">
+      <span style="font-size:12px;letter-spacing:0.18em;color:#F08335;font-weight:600">04</span>
+      <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:clamp(20px,2.7vw,40px);font-weight:300;line-height:1.18">{{ t.a4Title }}</span>
+      <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;line-height:1.9;color:#5c5a58;font-weight:300">{{ t.a4Body }}</span>
+      <span style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#5c5a58;text-align:right">{{ t.a4Tag }}</span>
+    </div>
+  </div>
+
+  <div style="margin-top:clamp(32px,4vw,56px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:0;border:2px solid #0b0b0b">
+    <div style="background:#fff;padding:clamp(22px,2.6vw,38px);display:flex;flex-direction:column;gap:12px;min-height:clamp(170px,18vw,240px);justify-content:flex-end;box-shadow:2px 0 0 #0b0b0b, 0 2px 0 #0b0b0b">
+      <span style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:#8a8785">{{ t.f1Kicker }}</span>
+      <span style="font-family:Archivo;font-size:clamp(38px,5vw,72px);font-weight:300;line-height:0.9;letter-spacing:-0.04em">2016</span>
+      <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13px;color:#5c5a58;font-weight:300">{{ t.f1Body }}</span>
+    </div>
+    <div style="background:#fff;padding:clamp(22px,2.6vw,38px);display:flex;flex-direction:column;gap:12px;min-height:clamp(170px,18vw,240px);justify-content:flex-end;box-shadow:2px 0 0 #0b0b0b, 0 2px 0 #0b0b0b">
+      <span style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:#8a8785">{{ t.f2Kicker }}</span>
+      <span style="font-family:Archivo;font-size:clamp(38px,5vw,72px);font-weight:300;line-height:0.9;letter-spacing:-0.04em;color:#2B4CA8">CDMO</span>
+      <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13px;color:#5c5a58;font-weight:300">{{ t.f2Body }}</span>
+    </div>
+    <div style="background:#fff;padding:clamp(22px,2.6vw,38px);display:flex;flex-direction:column;gap:12px;min-height:clamp(170px,18vw,240px);justify-content:flex-end;box-shadow:2px 0 0 #0b0b0b, 0 2px 0 #0b0b0b">
+      <span style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:#8a8785">{{ t.f3Kicker }}</span>
+      <span style="font-family:Archivo;font-size:clamp(38px,5vw,72px);font-weight:300;line-height:0.9;letter-spacing:-0.04em;color:#F08335">3</span>
+      <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13px;color:#5c5a58;font-weight:300">{{ t.f3Body }}</span>
+    </div>
+    <div style="background:#fff;padding:clamp(22px,2.6vw,38px);display:flex;flex-direction:column;gap:12px;min-height:clamp(170px,18vw,240px);justify-content:flex-end;box-shadow:2px 0 0 #0b0b0b, 0 2px 0 #0b0b0b">
+      <span style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:#8a8785">{{ t.f4Kicker }}</span>
+      <span style="font-family:Archivo;font-size:clamp(38px,5vw,72px);font-weight:300;line-height:0.9;letter-spacing:-0.04em">桃園</span>
+      <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13px;color:#5c5a58;font-weight:300">{{ t.f4Body }}</span>
+    </div>
+  </div>
+  <p style="margin:12px 0 0;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#5c5a58">{{ t.statsNote }}</p>
+</section>
+
+<section id="team" style="max-width:1680px;margin:0 auto;padding:0 clamp(16px,3vw,40px) clamp(72px,10vw,150px)">
+  <div style="display:flex;align-items:end;justify-content:space-between;flex-wrap:wrap;gap:20px;border-bottom:2px solid #0b0b0b;padding-bottom:22px">
+    <h2 style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-weight:300;font-size:clamp(26px,3.4vw,52px);line-height:1.12;letter-spacing:-0.02em">{{ t.teamTitle }}</h2>
+    <p style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;line-height:1.9;color:#5c5a58;font-weight:300;max-width:40ch">{{ t.teamLead }}</p>
+  </div>
+  <div style="margin-top:clamp(24px,3vw,44px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:clamp(18px,2.4vw,36px)">
+    <sc-for list="{{ team }}" as="p" hint-placeholder-count="4">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="position:relative;aspect-ratio:4/5;background:#f2f1f0">
+          <image-slot style="position:absolute;inset:0;width:100%;height:100%" id="{{ p.slotId }}" shape="rect" fit="cover" placeholder="{{ p.placeholder }}"></image-slot>
+        </div>
+        <span style="font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;color:#F08335">{{ p.role }}</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:18px;font-weight:400">{{ p.name }}</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13px;line-height:1.85;color:#5c5a58;font-weight:300">{{ p.body }}</span>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section id="promise" style="background:#2B4CA8;color:#fff;padding:clamp(60px,9vw,140px) clamp(16px,3vw,40px)">
+  <div style="max-width:1680px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(28px,5vw,90px);align-items:end;border-bottom:2px solid rgba(255,255,255,0.28);padding-bottom:clamp(24px,3vw,44px)">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <span style="font-size:11px;letter-spacing:0.28em;text-transform:uppercase;color:rgba(255,255,255,0.72)">{{ t.k04 }}</span>
+        <h2 style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-weight:300;font-size:clamp(28px,3.8vw,58px);line-height:1.22;letter-spacing:-0.01em;max-width:14em">{{ t.promiseTitle }}</h2>
+      </div>
+      <p style="margin:0;font-family:Archivo,'LXGW WenKai TC',serif;font-size:clamp(14px,1.3vw,17px);line-height:1.95;font-weight:300;max-width:42ch">{{ t.promiseLead }}</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:clamp(20px,3vw,56px);padding-top:clamp(24px,3vw,44px)">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:Archivo;font-size:12px;letter-spacing:0.2em;font-weight:600;color:rgba(255,255,255,0.7)">01</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:20px">{{ t.pr1Title }}</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13px;line-height:1.9;font-weight:300;color:rgba(255,255,255,0.88)">{{ t.pr1Body }}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:Archivo;font-size:12px;letter-spacing:0.2em;font-weight:600;color:rgba(255,255,255,0.7)">02</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:20px">{{ t.pr2Title }}</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13px;line-height:1.9;font-weight:300;color:rgba(255,255,255,0.88)">{{ t.pr2Body }}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:Archivo;font-size:12px;letter-spacing:0.2em;font-weight:600;color:rgba(255,255,255,0.7)">03</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:20px">{{ t.pr3Title }}</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13px;line-height:1.9;font-weight:300;color:rgba(255,255,255,0.88)">{{ t.pr3Body }}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:Archivo;font-size:12px;letter-spacing:0.2em;font-weight:600;color:rgba(255,255,255,0.7)">04</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:20px">{{ t.pr4Title }}</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13px;line-height:1.9;font-weight:300;color:rgba(255,255,255,0.88)">{{ t.pr4Body }}</span>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;padding-top:clamp(28px,4vw,52px)">
+      <a href="Products.dc.html" style="background:#fff;color:#0b0b0b;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;padding:14px 22px" style-hover="background:#0b0b0b;color:#fff">{{ t.ctaProducts }}</a>
+      <a href="Contact.dc.html" style="border:2px solid rgba(255,255,255,0.5);color:#fff;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;padding:12px 22px" style-hover="border-color:#fff;background:rgba(255,255,255,0.12)">{{ t.ctaContact }}</a>
+    </div>
+  </div>
+</section>
+
+<footer style="background:#0b0b0b;color:#fff;padding:clamp(56px,7vw,110px) clamp(16px,3vw,40px) 40px">
+  <div style="max-width:1680px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:clamp(28px,4vw,64px);border-bottom:2px solid #262626;padding-bottom:clamp(36px,5vw,64px)">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:22px;font-weight:700;letter-spacing:-0.02em">BioBunBan</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:12px;letter-spacing:0.3em;color:#8a8a8a">{{ t.tagline }}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:#5f5f5f">{{ t.fAbout }}</span>
+        <a href="About.dc.html#top" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fAbout1 }}</a>
+        <a href="About.dc.html#values" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fAbout2 }}</a>
+        <a href="About.dc.html#promise" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fAbout3 }}</a>
+        <a href="Materials.dc.html" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fAbout4 }}</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:#5f5f5f">{{ t.fService }}</span>
+        <a href="Contact.dc.html" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fService1 }}</a>
+        <a href="Contact.dc.html" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fService2 }}</a>
+        <a href="Contact.dc.html" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fService3 }}</a>
+        <a href="Contact.dc.html" style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">{{ t.fService4 }}</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:#5f5f5f">{{ t.fTouch }}</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9">{{ t.fPhone }}</span>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;color:#c9c9c9">{{ t.fHours }}</span>
+        <a href="mailto:service@biobunban.com" style="font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">service@biobunban.com</a>
+        <span style="font-family:Archivo,'LXGW WenKai TC',serif;font-size:13.5px;line-height:1.7;color:#8a8a8a">{{ t.fAddress }}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:#5f5f5f">{{ t.fFollow }}</span>
+        <a href="https://www.facebook.com/biobunban" style="font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">Facebook</a>
+        <a href="https://www.instagram.com/biobunban/" style="font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">Instagram</a>
+        <a href="https://lin.ee/VEZ2qUi" style="font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">LINE</a>
+        <a href="https://www.youtube.com/@BioBunBan" style="font-size:13.5px;color:#c9c9c9" style-hover="color:#F08335">YouTube</a>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;padding-top:28px;font-size:11px;letter-spacing:0.14em;color:#5f5f5f">
+      <span>{{ t.copyright }}</span>
+      <span>{{ t.place }}</span>
+    </div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;zh&quot;,&quot;options&quot;:[&quot;zh&quot;,&quot;en&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Language&quot;}}">
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    this.state = { lang: p.defaultLang === 'en' ? 'en' : 'zh', menu: false };
+  }
+  componentDidMount() {
+    try {
+      import('./reveal.js').then(m => m.setupReveal(document)).catch(() => {});
+    } catch (e) {}
+    try {
+      const saved = localStorage.getItem('bb-lang');
+      if ((saved === 'en' || saved === 'zh') && saved !== this.state.lang) this.setState({ lang: saved });
+    } catch (e) {}
+  }
+  setLang(l) {
+    try { localStorage.setItem('bb-lang', l); } catch (e) {}
+    this.setState({ lang: l });
+    if (document.documentElement) document.documentElement.lang = l === 'en' ? 'en' : 'zh-Hant';
+  }
+  dict() {
+    return {
+      zh: {
+        tagline: '生物的魔法師',
+        navProducts: '商品', navManufacturing: '製造', navMaterials: '原料', navAbout: '關於', navContact: '聯絡',
+        account: '會員', cart: '購物車',
+        heroKicker2: '公司介紹・理念・團隊・安心宣言',
+        heroTitle1: '一間從海邊', heroTitle2: '長出來的生技公司',
+        heroLead: 'BioBunBan 獨特的地方、優勢，以及項目快速瀏覽。',
+        heroSub: '我們取鮭魚的特性，形成了不忘本分、不忘初心、尊敬大自然三大信念，並基於這三個信念發展我們的營運之道。',
+        jump1: '創始人寄語', jump2: '核心價值', jump3: '公司介紹', jump4: '安心宣言',
+        k01: '01 — 創始人寄語',
+        founderTitle1: '這一切的起點，', founderTitle2: '是望向太平洋的那一刻',
+        founderName: '楊正', founderRole: '創辦人 兼任 執行長 CEO',
+        founderPull: 'BioBunBan 為什麼會誕生呢？這一切的起點，從創辦人楊正在學生時期望向太平洋開始。',
+        founderP1: '在花蓮，海不是風景，是每天都在旁邊發生的事。潮水退了又回來，什麼都沒有被留下，卻什麼都被交換過一次。學生時期站在岸邊看太平洋的那段時間，決定了後來所有的問題意識：生命到底是怎麼撐下去的。',
+        founderP2: '這個問題後來變成一間公司。我們不把保健食品當成商品，而是當成一個回答——用研究、用製造、用每天都能吃下去的形式，去回應身體自己的節奏。',
+        founderNote: '此段為依官網「創始人寄語」主旨整理的示意文字，提供正式全文後即可替換。',
+        k02: '02 — 核心價值',
+        valuesTitle: '三大信念',
+        valuesLead: 'BioBunBan 取鮭魚的特性，形成了不忘本分、不忘初心、尊敬大自然三大信念。',
+        v1Title: '不忘本分', v1Latin: 'Know your part', v1Body: '鮭魚不會做別的事，牠只是回到出生的那條溪。我們的本分是把配方做對、把品質守住，其餘都排在後面。',
+        v2Title: '不忘初心', v2Latin: 'Keep the first intent', v2Body: '逆流不是姿態，是一路上沒有改變過的方向。產品換了世代，出發點還是同一個。',
+        v3Title: '尊敬大自然', v3Latin: 'Respect nature', v3Body: '原料來自土地與海洋，取用之前要先理解它。我們基於這三個信念發展營運之道。',
+        valuesFoot: '「我們基於這三大核心價值，我們基於這三個信念發展我們的營運之道。」— 官網・核心價值',
+        k03: '03 — 公司介紹',
+        companyTitle1: 'BioBunBan', companyTitle2: '獨特的地方',
+        companyLead: '從配方設計、代工生產到品牌經營，我們把研究、製造與銷售放在同一個屋簷下，所以每一個決定都能被追到源頭。',
+        a1Title: '自有配方與研發', a1Body: '菌株篩選、複方設計與功能驗證都在內部進行，不外包關鍵判斷。', a1Tag: '研發',
+        a2Title: 'CDMO 代工服務', a2Body: '從產品企劃、配方開發、試作到量產與包裝，提供一站式委託製造。', a2Tag: '製造',
+        a3Title: '品質與檢驗', a3Body: '原料來源追溯、重金屬與農藥殘留檢驗、每批留樣與第三方報告。', a3Tag: '品質',
+        a4Title: '品牌自營通路', a4Body: '官網、電商與門市通路自營，第一手的使用回饋直接回到配方端。', a4Tag: '通路',
+        f1Kicker: '成立', f1Body: '桃園・中壢 Taoyuan',
+        f2Kicker: '服務模式', f2Body: '委託開發暨製造服務',
+        f3Kicker: '產線', f3Body: '條包・膠囊・液態',
+        f4Kicker: '據點', f4Body: '高鐵站前西路一段268號',
+        statsNote: '部分數字為示意，提供實際資料後即可替換',
+        teamTitle: '團隊介紹',
+        teamLead: '研發、製造、品保與品牌四條線，人數不多，但每一條都有人負責到底。',
+        p1Role: '創辦人／執行長', p1Name: '楊正', p1Body: '從花蓮的海岸線走到桃園的產線。',
+        p2Role: '研發', p2Name: '配方與菌株團隊', p2Body: '菌株篩選、複方設計、功能驗證。',
+        p3Role: '製造', p3Name: '生產與品保團隊', p3Body: '混合均質度、菌數穩定性、批次留樣。',
+        p4Role: '品牌', p4Name: '品牌與客服團隊', p4Body: '把使用者說的話，翻譯回配方的語言。',
+        k04: '04 — 安心宣言',
+        promiseTitle: '能被檢驗的，我們才敢說。',
+        promiseLead: '保健食品不該靠形容詞說話。以下四件事，是我們對每一盒產品的承諾。',
+        pr1Title: '來源可追溯', pr1Body: '每一項原料都有供應商與產地紀錄，可回溯到批次。',
+        pr2Title: '第三方檢驗', pr2Body: '重金屬、農藥殘留、微生物等項目送交外部實驗室。',
+        pr3Title: '每批留樣', pr3Body: '出貨批次保留樣品，有疑慮時可即時對照。',
+        pr4Title: '標示誠實', pr4Body: '有效成分含量與菌數如實標示，不做無法佐證的宣稱。',
+        ctaProducts: '看商品 Products', ctaContact: '聯絡我們 Contact',
+        fAbout: '關於', fAbout1: '關於我們', fAbout2: '理念', fAbout3: '安心宣言', fAbout4: '原料展示',
+        fService: '服務', fService1: '客服中心', fService2: '退款政策', fService3: '隱私政策', fService4: '服務條款',
+        fTouch: '聯絡我們', fPhone: '客服專線：02-6605-7658', fHours: '客服時間：09:00–17:00',
+        fAddress: '桃園市中壢區高鐵站前西路一段268號12F-8',
+        fFollow: '追蹤我們',
+        copyright: '© 2026 BioBunBan 生物的魔法師. 版權所有.', place: '桃園 · 台灣'
+      },
+      en: {
+        tagline: 'THE BIO MAGICIANS',
+        navProducts: 'Products', navManufacturing: 'Manufacturing', navMaterials: 'Materials', navAbout: 'About', navContact: 'Contact',
+        account: 'Account', cart: 'CART',
+        heroKicker2: 'Company · Values · Team · Promise',
+        heroTitle1: 'A biotech company', heroTitle2: 'that grew out of the sea',
+        heroLead: 'What makes BioBunBan different, what we are good at, and a quick tour of the operation.',
+        heroSub: 'Our three beliefs are taken from the salmon: know your part, keep the first intent, respect nature. Everything in how we operate is built on those three.',
+        jump1: 'Founder', jump2: 'Core values', jump3: 'Company', jump4: 'Promise',
+        k01: '01 — From the founder',
+        founderTitle1: 'It started the moment', founderTitle2: 'he looked at the Pacific',
+        founderName: 'Yang Zheng 楊正', founderRole: 'Founder & CEO',
+        founderPull: 'Why does BioBunBan exist? It began when the founder, Yang Zheng, stood as a student and looked out at the Pacific.',
+        founderP1: 'In Hualien the sea is not scenery; it is something happening next to you every day. The tide leaves and returns, nothing is kept, and yet everything has been exchanged once. Those years on the shore set the question that came after: how does a living thing keep going.',
+        founderP2: 'That question later became a company. We do not treat supplements as merchandise but as an answer — through research, through manufacturing, and in a form you can actually take every day.',
+        founderNote: "Summarised from the site's founder page; send the full text and I'll set it verbatim.",
+        k02: '02 — Core values',
+        valuesTitle: 'Three beliefs',
+        valuesLead: 'BioBunBan takes the character of the salmon and turns it into three beliefs: know your part, keep the first intent, respect nature.',
+        v1Title: 'Know your part', v1Latin: '不忘本分', v1Body: 'The salmon does one thing: it returns to the stream it was born in. Our part is to get the formulation right and hold the quality. Everything else queues behind that.',
+        v2Title: 'Keep the first intent', v2Latin: '不忘初心', v2Body: 'Swimming upstream is not a pose; it is a direction that never changed along the way. Products move on generations; the starting point does not.',
+        v3Title: 'Respect nature', v3Latin: '尊敬大自然', v3Body: 'Raw materials come from land and sea, and you understand them before you take them. Our way of operating is developed on these three beliefs.',
+        valuesFoot: '"We develop our way of operating on these three beliefs." — biobunban.com, Core values',
+        k03: '03 — Company',
+        companyTitle1: 'What makes', companyTitle2: 'BioBunBan different',
+        companyLead: 'Formulation, contract manufacturing and our own brand sit under one roof, so every decision can be traced back to where it was made.',
+        a1Title: 'In-house R&D', a1Body: 'Strain screening, complex formulation and functional validation are done internally; the key judgements are not outsourced.', a1Tag: 'R&D',
+        a2Title: 'CDMO service', a2Body: 'Product planning, formulation, pilot runs, mass production and packaging as one commission.', a2Tag: 'Manufacture',
+        a3Title: 'Quality and testing', a3Body: 'Source tracing, heavy metal and pesticide residue testing, retained samples per batch, third-party reports.', a3Tag: 'Quality',
+        a4Title: 'Our own channel', a4Body: 'We run the site, the marketplaces and retail ourselves, so first-hand feedback returns to the formulation desk.', a4Tag: 'Channel',
+        f1Kicker: 'Since', f1Body: 'Zhongli, Taoyuan 桃園・中壢',
+        f2Kicker: 'Model', f2Body: 'Contract development & manufacturing',
+        f3Kicker: 'Lines', f3Body: 'Stick pack · capsule · liquid',
+        f4Kicker: 'Based in', f4Body: 'Gaotie Zhanqian W. Rd., Zhongli',
+        statsNote: "Some figures are placeholders — send the real ones and I'll set them",
+        teamTitle: 'The team',
+        teamLead: 'Four lines — research, manufacturing, quality and brand. Not many people, but each line has someone who owns it end to end.',
+        p1Role: 'Founder / CEO', p1Name: 'Yang Zheng 楊正', p1Body: 'From the Hualien coastline to the Taoyuan production line.',
+        p2Role: 'Research', p2Name: 'Formulation & strain team', p2Body: 'Strain screening, complex design, functional validation.',
+        p3Role: 'Manufacturing', p3Name: 'Production & QA team', p3Body: 'Blend homogeneity, viable counts, retained samples.',
+        p4Role: 'Brand', p4Name: 'Brand & service team', p4Body: 'Translating what users say back into the language of a formulation.',
+        k04: '04 — Our promise',
+        promiseTitle: 'If it cannot be tested, we do not claim it.',
+        promiseLead: 'Supplements should not run on adjectives. These four things are what we promise for every box.',
+        pr1Title: 'Traceable sourcing', pr1Body: 'Every raw material carries a supplier and origin record, traceable to the batch.',
+        pr2Title: 'Third-party testing', pr2Body: 'Heavy metals, pesticide residue and microbiology go to external labs.',
+        pr3Title: 'Retained samples', pr3Body: 'Samples are kept for each shipped batch, so any question can be checked against them.',
+        pr4Title: 'Honest labelling', pr4Body: 'Actives and viable counts are stated as they are. No claim we cannot support.',
+        ctaProducts: 'Products 商品', ctaContact: 'Contact 聯絡我們',
+        fAbout: 'About', fAbout1: 'About us', fAbout2: 'Philosophy', fAbout3: 'Safety statement', fAbout4: 'Materials',
+        fService: 'Service', fService1: 'Customer service', fService2: 'Refund policy', fService3: 'Privacy policy', fService4: 'Terms of service',
+        fTouch: 'Get in touch', fPhone: 'Service line: +886 2-6605-7658', fHours: 'Hours: 09:00–17:00',
+        fAddress: '12F-8, No. 268, Sec. 1, Gaotie Zhanqian W. Rd., Zhongli, Taoyuan, Taiwan',
+        fFollow: 'Follow',
+        copyright: '© 2026 BioBunBan. All rights reserved.', place: 'Taoyuan · Taiwan'
+      }
+    };
+  }
+  renderVals() {
+    const lang = this.state.lang === 'en' ? 'en' : 'zh';
+    const t = this.dict()[lang];
+    return {
+      t,
+      team: [1, 2, 3, 4].map(i => ({
+        role: t['p' + i + 'Role'],
+        name: t['p' + i + 'Name'],
+        body: t['p' + i + 'Body'],
+        slotId: 'bb-team-' + i,
+        placeholder: lang === 'zh' ? '團隊照片 ' + i : 'Team photo ' + i
+      })),
+      menuDisplay: this.state.menu ? 'flex' : 'none',
+      openMenu: () => this.setState({ menu: true }),
+      closeMenu: () => this.setState({ menu: false }),
+      menuCats: [
+        ['all', '全部商品', 'All products'],
+        ['helos', '跑趴伴侶 Dr. Helos', 'Dr. Helos'],
+        ['burning', '燃燒吧 Burning', 'Burning'],
+        ['sommeil', '淺眠好幫手 Sommeil', 'Sommeil'],
+        ['women', '全方位女性', 'Women'],
+        ['focus', '思緒的精準導航', 'Focus'],
+        ['phytopure', '植・萃 PhytoPure', 'PhytoPure'],
+        ['partner', '合作夥伴商品', 'Partner']
+      ].map(r => ({ label: lang === 'zh' ? r[1] : r[2], href: 'Products.dc.html#' + r[0] })),
+      langKnob: lang === 'zh' ? 'translateX(0)' : 'translateX(100%)',
+      zhInk: lang === 'zh' ? '#0b0b0b' : '#8a8a8a',
+      enInk: lang === 'en' ? '#0b0b0b' : '#8a8a8a',
+      openCart: () => { if (window.BBCart) window.BBCart.open(); },
+      toggleLang: () => this.setLang(lang === 'zh' ? 'en' : 'zh')
+    };
+  }
+}
+</script>
+</body>
+</html>
