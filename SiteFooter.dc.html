@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,800&amp;display=swap" rel="stylesheet">
+</helmet>
+<footer style="background:#f4f3f1;color:#111;padding:clamp(56px,6vw,88px) clamp(20px,5vw,72px) 28px;font-family:'Space Grotesk','Noto Sans TC',sans-serif">
+  <div style="max-width:1440px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(40px,5vw,64px)">
+    <div style="display:grid;grid-template-columns:{{ cols }};gap:clamp(32px,4vw,56px) clamp(24px,4vw,56px);align-items:start">
+      <div style="display:flex;flex-direction:column;gap:18px;grid-column:span 1">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span style="font-family:'Archivo',sans-serif;font-size:clamp(28px,2.6vw,36px);font-weight:800;font-stretch:87.5%;letter-spacing:-0.02em;line-height:1">BioBunBan</span>
+          <span style="font-size:14px;letter-spacing:0.2em;color:#6b6866">{{ L.tagline }}</span>
+        </div>
+        <a href="Contact.dc.html" style="align-self:flex-start;display:inline-flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#fff;background:#2B4CA8;padding:13px 22px;border-radius:3px" style-hover="background:#223f8f;color:#fff">{{ L.cta }} <span>→</span></a>
+      </div>
+      <nav style="display:flex;flex-direction:column;gap:12px;font-size:15px">
+        <span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#8a8785;margin-bottom:6px">{{ L.hExplore }}</span>
+        <a href="Home.dc.html">{{ L.home }}</a>
+        <a href="Products.dc.html">{{ L.products }}</a>
+        <a href="Manufacturing.dc.html">{{ L.mfg }}</a>
+        <a href="Materials.dc.html">{{ L.materials }}</a>
+        <a href="Contact.dc.html">{{ L.contact }}</a>
+      </nav>
+      <div style="display:flex;flex-direction:column;gap:12px;font-size:15px">
+        <span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#8a8785;margin-bottom:6px">{{ L.hContact }}</span>
+        <a href="tel:+886266057658">02-6605-7658</a>
+        <a href="mailto:service@biobunban.com" style="white-space:nowrap">service@biobunban.com</a>
+        <span style="color:#56534f;max-width:18em;line-height:1.6;white-space:pre-line">{{ L.address }}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;font-size:15px">
+        <span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#8a8785;margin-bottom:6px">{{ L.hFollow }}</span>
+        <a href="https://www.facebook.com/biobunban">Facebook</a>
+        <a href="https://www.instagram.com/biobunban/">Instagram</a>
+        <a href="https://lin.ee/VEZ2qUi">LINE</a>
+        <a href="https://www.youtube.com/@BioBunBan">YouTube</a>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;border-top:1px solid #d9d6d2;padding-top:22px;font-size:13px;color:#6b6866">
+      <span>© 2026 BioBunBan</span>
+    </div>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;lang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;zh&quot;,&quot;en&quot;],&quot;default&quot;:&quot;zh&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() { this._r = () => this.forceUpdate(); window.addEventListener('resize', this._r); }
+  componentWillUnmount() { window.removeEventListener('resize', this._r); }
+  renderVals() {
+    const w = window.innerWidth;
+    const cols = w >= 960 ? 'minmax(0,1.4fr) minmax(0,0.75fr) minmax(0,1.15fr) minmax(0,1fr)' : (w >= 420 ? 'repeat(2,minmax(0,1fr))' : 'minmax(0,1fr)');
+    const en = this.props.lang === 'en';
+    return {
+      cols,
+      L: en
+        ? { tagline: 'The bio magicians', home: 'Home', hExplore: 'Explore', hContact: 'Contact', hFollow: 'Follow', cta: 'Get in touch', products: 'Products', mfg: 'Manufacturing', materials: 'Materials', contact: 'Contact', address: '12F-8, No. 268, Sec. 1, Gaotie Zhanqian W. Rd., Zhongli, Taoyuan' }
+        : { tagline: '生物的魔法師', home: '首頁', hExplore: '網站導覽', hContact: '聯絡資訊', hFollow: '追蹤我們', cta: '聯絡我們', products: '商品', mfg: '製造', materials: '原料', contact: '聯絡', address: '桃園市中壢區高鐵站\n前西路一段268號12F-8' }
+    };
+  }
+}
+</script>
+</body>
+</html>
