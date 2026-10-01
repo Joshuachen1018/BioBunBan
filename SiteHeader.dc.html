@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,800&amp;display=swap" rel="stylesheet">
+<script src="./cart.js"></script>
+<style>
+  h1, h2, h3, h4, h5, h6, button, input, textarea, select { font-family: "Space Grotesk", "Noto Sans TC", -apple-system, sans-serif; }
+</style>
+</helmet>
+<header ref="{{ hdrRef }}" style="position:fixed;top:0;left:0;right:0;z-index:60;padding:14px clamp(10px,1.6vw,18px) 8px;font-family:'Space Grotesk','Noto Sans TC',sans-serif">
+  <div style="position:relative;max-width:1280px;margin:0 auto;padding:12px 14px 12px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;border-radius:22px;background:{{ bg }};backdrop-filter:blur(13px) saturate(175%);-webkit-backdrop-filter:blur(13px) saturate(175%);border:1px solid {{ line }};box-shadow:0 10px 34px rgba(16,40,60,0.10), inset 0 1px 1px rgba(255,255,255,0.5);transition:background .3s ease, border-color .3s ease">
+    <a href="Home.dc.html" style="display:flex;flex-direction:column;line-height:1;color:{{ ink }};text-shadow:{{ txtShadow }};flex:none;transition:color .3s ease" style-hover="color:#F08335">
+      <span style="font-family:'Archivo',sans-serif;font-size:22px;font-weight:600;font-stretch:87.5%;letter-spacing:-0.01em">BioBunBan</span>
+      <span style="font-size:10px;letter-spacing:0.32em;margin-top:5px;opacity:0.8">{{ L.tagline }}</span>
+    </a>
+    <nav style="display:{{ navDisplay }};align-items:center;gap:4px">
+      <sc-for list="{{ menus }}" as="g" hint-placeholder-count="4">
+      <div onMouseEnter="{{ g.open }}" onMouseLeave="{{ closeMenu }}" style="position:relative">
+        <a href="{{ g.href }}" style="display:block;white-space:nowrap;font-size:15px;font-weight:500;letter-spacing:0.02em;padding:9px 16px;border-radius:13px;color:{{ g.color }};background:{{ g.bg }};box-shadow:{{ g.sh }};text-shadow:{{ txtShadow }};transition:background .25s, box-shadow .25s, color .2s" style-hover="background:rgba(255,255,255,0.12);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.14), inset 0 1px 1px rgba(255,255,255,0.2);color:{{ hoverInk }}">{{ g.label }}</a>
+        <div style="position:absolute;top:100%;left:50%;min-width:220px;padding:16px 9px 10px;z-index:60;background:{{ bg }};backdrop-filter:blur(13px) saturate(175%);-webkit-backdrop-filter:blur(13px) saturate(175%);border:1px solid {{ line }};border-radius:26px;box-shadow:0 10px 34px rgba(16,40,60,0.10), inset 0 1px 1px rgba(255,255,255,0.5);transform-origin:top center;transition:opacity .3s cubic-bezier(.22,1,.36,1), transform .46s cubic-bezier(.34,1.46,.5,1), visibility .3s linear;opacity:{{ g.ddOp }};visibility:{{ g.ddVis }};pointer-events:{{ g.ddPe }};transform:{{ g.ddTf }}">
+          <div aria-hidden="true" style="position:absolute;left:18px;right:18px;top:3px;height:2px;border-radius:2px;pointer-events:none;background:linear-gradient(90deg, rgba(160,180,255,0) 0%, rgba(175,195,255,0.95) 22%, rgba(200,215,255,0.98) 50%, rgba(175,195,255,0.95) 78%, rgba(160,180,255,0) 100%)"></div>
+          <sc-for list="{{ g.items }}" as="m" hint-placeholder-count="4">
+            <a href="{{ m.href }}" style="position:relative;display:block;padding:12px 18px;font-size:15px;font-weight:500;color:{{ subTxt }};border-radius:14px;white-space:nowrap;transition:background .22s ease, color .22s ease" style-hover="background:{{ itemHoverBg }};box-shadow:inset 0 0 0 1px rgba(255,255,255,0.8), inset 0 1px 1px rgba(255,255,255,0.95);color:{{ hoverInk }}">{{ m.label }}</a>
+          </sc-for>
+        </div>
+      </div>
+      </sc-for>
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;flex:none">
+      <button type="button" onClick="{{ toggleLang }}" aria-label="Language" style="display:flex;align-items:center;gap:6px;background:transparent;border:0;color:{{ ink }};text-shadow:{{ txtShadow }};font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.08em;padding:9px 12px;border-radius:13px;cursor:pointer" style-hover="background:rgba(255,255,255,0.12);color:{{ hoverInk }}">
+        <span style="opacity:{{ zhOp }}">中</span><span style="opacity:0.35">/</span><span style="opacity:{{ enOp }}">EN</span>
+      </button>
+      <button type="button" onClick="{{ openCart }}" aria-label="{{ L.cart }}" title="{{ L.cart }}" style="position:relative;display:flex;align-items:center;justify-content:center;width:44px;height:44px;color:#fff;background:#2B4CA8;padding:0;border:0;border-radius:3px;cursor:pointer" style-hover="background:#223f8f"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg><span data-cart-count="1" style="position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;padding:0 5px;box-sizing:border-box;border-radius:9px;background:#F08335;color:#111;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;line-height:18px;text-align:center">0</span></button>
+      <button type="button" onClick="{{ toggleMob }}" aria-label="Menu" style="display:{{ mobBtnDisplay }};width:44px;height:44px;align-items:center;justify-content:center;font-size:24px;line-height:1;background:transparent;border:0;color:{{ ink }};border-radius:8px;cursor:pointer">{{ menuIcon }}</button>
+    </div>
+  </div>
+  <div style="display:{{ mobShow }};position:absolute;top:100%;left:clamp(10px,1.6vw,18px);right:clamp(10px,1.6vw,18px);max-width:1280px;margin:2px auto 0;box-sizing:border-box;padding:8px 18px 20px;flex-direction:column;border-radius:22px;opacity:{{ mobOp }};visibility:{{ mobVis }};pointer-events:{{ mobPe }};transform:{{ mobTf }};transform-origin:top center;transition:opacity .3s cubic-bezier(.22,1,.36,1), transform .5s cubic-bezier(.34,1.36,.5,1), visibility .3s linear;background:rgba(255,255,255,0.78);backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);border:1px solid rgba(255,255,255,0.7);box-shadow:0 12px 34px rgba(16,40,60,0.16), inset 0 1px 1px rgba(255,255,255,0.9)">
+    <sc-for list="{{ allLinks }}" as="l" hint-placeholder-count="4">
+      <a href="{{ l.href }}" style="display:block;padding:16px 8px;font-size:18px;font-weight:600;color:#14202b;border-bottom:1px solid rgba(20,32,43,0.08);opacity:{{ l.op }};transform:{{ l.tf }};transition:opacity .4s cubic-bezier(.22,1,.36,1) {{ l.delay }}, transform .5s cubic-bezier(.22,1,.36,1) {{ l.delay }}">{{ l.label }}</a>
+    </sc-for>
+  </div>
+</header>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;lang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;zh&quot;,&quot;en&quot;],&quot;default&quot;:&quot;zh&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;active&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;onToggleLang&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;}}">
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    this.state = { menu: false, mob: false, tick: 0 };
+    this._on = () => {
+      if (this._t) return;
+      this._t = setTimeout(() => { this._t = 0; this.setState(s => ({ tick: s.tick + 1 })); }, 16);
+    };
+  }
+  componentDidMount() {
+    window.addEventListener('scroll', this._on, { passive: true });
+    window.addEventListener('resize', this._on);
+    this._iv = setInterval(this._on, 400);
+    setTimeout(() => { if (window.BBCart) window.dispatchEvent(new StorageEvent('storage', { key: 'bb-cart-v1' })); }, 300);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._on); window.removeEventListener('resize', this._on); clearInterval(this._iv);
+    if (this._w) { this._w.removeEventListener('scroll', this._on); this._w.removeEventListener('resize', this._on); }
+  }
+  win() { return (this._el && this._el.ownerDocument && this._el.ownerDocument.defaultView) || window; }
+  bind(el) {
+    if (el === this._el) return;
+    this._el = el;
+    if (!el) return;
+    const w = this.win();
+    if (this._w === w) return;
+    this._w = w;
+    w.addEventListener('scroll', this._on, { passive: true });
+    w.document.addEventListener('scroll', this._on, { passive: true, capture: true });
+    w.addEventListener('resize', this._on);
+    this._on();
+  }
+  overDark() {
+    const d = this.win().document;
+    const probe = 46;
+    let dark = false;
+    d.querySelectorAll('[data-dark-bg]').forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.top <= probe && r.bottom >= probe) dark = true;
+    });
+    return dark;
+  }
+  renderVals() {
+    const en = this.props.lang === 'en';
+    const L = en
+      ? { tagline: 'BIO MAGICIANS', products: 'Products', mfg: 'Manufacturing', materials: 'Materials', contact: 'Contact', cart: 'Cart' }
+      : { tagline: '生物的魔法師', products: '商品', mfg: '製造', materials: '原料', contact: '聯絡', cart: '購物車' };
+    const cats = [['all', '全部商品', 'All products'], ['helos', '跑趴伴侶 Dr. Helos', 'Dr. Helos'], ['burning', '燃燒吧 Burning', 'Burning'], ['sommeil', '淺眠好幫手 Sommeil', 'Sommeil'], ['women', '全方位女性', 'Women'], ['focus', '思緒的精準導航', 'Focus'], ['phytopure', '植・萃 PhytoPure', 'PhytoPure'], ['partner', '合作夥伴商品', 'Partner']];
+    const w = this.win();
+    const narrow = w.innerWidth < 960;
+    const mob = this.state.mob && narrow;
+    const dark = !mob && this.overDark();
+    const a = this.props.active;
+    const navTxt = dark ? '#ffffff' : '#14202b';
+    const item = (on) => ({
+      color: navTxt,
+      bg: on ? (dark ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.7)') : 'transparent',
+      sh: on ? 'inset 0 0 0 1px rgba(255,255,255,0.16), inset 0 1px 1px rgba(255,255,255,0.22)' : 'none'
+    });
+    const links = [['manufacturing', 'Manufacturing.dc.html', L.mfg], ['materials', 'Materials.dc.html', L.materials], ['contact', 'Contact.dc.html', L.contact]];
+    const open = this.state.menu;
+    const T = (zh, enl) => en ? enl : zh;
+    const groups = [
+      ['products', 'Products.dc.html', L.products, cats.map(c => ['Products.dc.html#' + c[0], en ? c[2] : c[1]])],
+      ['manufacturing', 'Manufacturing.dc.html', L.mfg, [['Manufacturing.dc.html#process', T('生產流程', 'Process')], ['Manufacturing.dc.html#lines', T('產線設備', 'Production lines')], ['Manufacturing.dc.html#quality', T('品質管理', 'Quality')], ['Manufacturing.dc.html#oem', T('代工服務', 'OEM / ODM')]]],
+      ['materials', 'Materials.dc.html', L.materials, [['Materials.dc.html#strains', T('菌株', 'Strains')], ['Materials.dc.html#stemcells', T('幹細胞', 'Stem cells')], ['Materials.dc.html#spec', T('規格諮詢', 'Specifications')]]],
+      ['contact', 'Contact.dc.html', L.contact, [['Contact.dc.html#channels', T('聯絡方式', 'Channels')], ['Contact.dc.html#form', T('線上表單', 'Message form')]]]
+    ];
+    const menus = groups.map(g => {
+      const on = open === g[0];
+      return Object.assign({
+        href: g[1], label: g[2],
+        items: g[3].map(i => ({ href: i[0], label: i[1] })),
+        ddOp: on ? '1' : '0', ddVis: on ? 'visible' : 'hidden', ddPe: on ? 'auto' : 'none',
+        ddTf: on ? 'translateX(-50%) translateY(0) scale(1)' : 'translateX(-50%) translateY(-10px) scale(0.92)',
+        open: () => this.setState({ menu: g[0] })
+      }, item(a === g[0]));
+    });
+    return {
+      L,
+      menus,
+      hdrRef: this._ref || (this._ref = (el) => this.bind(el)),
+      ink: navTxt,
+      itemHoverBg: dark ? 'rgba(255,255,255,0.14)' : 'rgba(255,255,255,0.6)',
+      hoverInk: dark ? '#cfdcff' : '#2B4CA8',
+      subTxt: navTxt,
+      txtShadow: dark ? '0 1px 8px rgba(8,16,24,0.35)' : 'none',
+      bg: dark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.55)',
+      line: dark ? 'rgba(255,255,255,0.28)' : 'rgba(255,255,255,0.7)',
+      prod: item(a === 'products'),
+      links: links.map(l => Object.assign({ href: l[1], label: l[2] }, item(a === l[0]))),
+      cats: cats.map(c => ({ href: 'Products.dc.html#' + c[0], label: en ? c[2] : c[1] })),
+      allLinks: [{ href: 'Products.dc.html', label: L.products }].concat(links.map(l => ({ href: l[1], label: l[2] }))).map((l, i) => Object.assign(l, { op: mob ? '1' : '0', tf: mob ? 'none' : 'translateY(-8px)', delay: mob ? (80 + i * 55) + 'ms' : '0ms' })),
+      ddOp: open ? '1' : '0',
+      ddVis: open ? 'visible' : 'hidden',
+      ddPe: open ? 'auto' : 'none',
+      ddTf: open ? 'translateX(-50%) translateY(0) scale(1)' : 'translateX(-50%) translateY(-10px) scale(0.92)',
+      openMenu: () => {},
+      closeMenu: () => this.setState({ menu: false }),
+      navDisplay: narrow ? 'none' : 'flex',
+      ctaDisplay: narrow ? 'none' : 'flex',
+      mobBtnDisplay: narrow ? 'flex' : 'none',
+      mobShow: narrow ? 'flex' : 'none',
+      mobOp: mob ? '1' : '0', mobVis: mob ? 'visible' : 'hidden', mobPe: mob ? 'auto' : 'none',
+      mobTf: mob ? 'translateY(0) scale(1)' : 'translateY(-12px) scale(0.96)',
+      menuIcon: this.state.mob ? '✕' : '☰',
+      toggleMob: () => this.setState(s => ({ mob: !s.mob })),
+      zhOp: en ? '0.45' : '1',
+      enOp: en ? '1' : '0.45',
+      toggleLang: () => { if (this.props.onToggleLang) this.props.onToggleLang(); },
+      openCart: () => { if (window.BBCart) window.BBCart.open(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

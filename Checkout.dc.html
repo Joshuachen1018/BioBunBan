@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/modernist-288dda3c-e1fa-4c2f-89ab-b0d8489feea2/styles.css">
+<script src="_ds/modernist-288dda3c-e1fa-4c2f-89ab-b0d8489feea2/_ds_bundle.js"></script>
+<script src="./cart.js"></script>
+<script src="./image-slot.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #ffffff; color: #14202b; font-family: "Space Grotesk", "Noto Sans TC", -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4, h5, h6, button, input, textarea, select { font-family: "Space Grotesk", "Noto Sans TC", -apple-system, sans-serif; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: #F08335; }
+  ::selection { background: #d6def5; }
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid #F08335; outline-offset: 2px; }
+  input:focus, textarea:focus { border-color: #2B4CA8 !important; box-shadow: 0 0 0 3px #eaeef8; }
+  button { transition: transform .2s ease, background-color .25s ease, color .2s ease, box-shadow .25s ease, border-color .2s ease; }
+  button:hover { transform: translateY(-2px); }
+  button:active { transform: translateY(0); }
+  @keyframes bbrise { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: none; } }
+  @keyframes bbdrop { 0% { opacity: 0; transform: translateY(-8px); } 100% { opacity: 1; transform: none; } }
+  @keyframes bbpan { 0% { transform: scale(1.04) translate3d(0,0,0); } 100% { transform: scale(1.09) translate3d(0,-1.2%,0); } }
+  @keyframes bbcue { 0% { transform: translateY(0); opacity: 0.4; } 50% { transform: translateY(7px); opacity: 1; } 100% { transform: translateY(0); opacity: 0.4; } }
+</style>
+</helmet>
+<div style="width:100%;overflow-x:clip">
+<dc-import name="SiteHeader" lang="{{ lang }}" active="" on-toggle-lang="{{ toggleLang }}" hint-size="100%,0px"></dc-import>
+<section id="top" data-dark-bg="" style="position:relative;width:100%;min-height:clamp(380px,52vh,520px);padding-top:96px;box-sizing:border-box;display:flex;align-items:center;overflow:hidden;background:#0f1c28">
+  <img src="assets/hero-forest.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg, rgba(13,24,33,0.62) 0%, rgba(13,24,33,0.34) 40%, rgba(13,24,33,0.06) 70%, rgba(13,24,33,0.2) 100%);pointer-events:none"></div>
+  <div style="position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;box-sizing:border-box;padding-left:clamp(20px,4vw,40px);padding-right:clamp(20px,4vw,40px);padding-top:40px;padding-bottom:104px">
+    <div style="max-width:760px;animation:bbrise .8s cubic-bezier(.2,.7,.2,1) .1s both">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:22px"><span style="width:34px;height:2px;background:#F08335;display:block"></span><span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.24em;text-transform:uppercase;color:#ffffff">Checkout · {{ t.demoTag }}</span></div>
+      <h1 style="margin:0;font-size:clamp(38px,5.6vw,72px);font-weight:900;line-height:1.12;letter-spacing:-0.01em;color:#fff;text-shadow:0 2px 16px rgba(8,16,24,0.6), 0 1px 3px rgba(8,16,24,0.5)">{{ t.title }}</h1>
+      
+    </div>
+  </div>
+  <div style="position:absolute;z-index:2;left:50%;transform:translateX(-50%);bottom:30px;display:flex;flex-direction:column;align-items:center;gap:10px"><span style="font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:0.3em;padding-left:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.7)">Scroll</span><span style="width:1px;height:36px;background:linear-gradient(rgba(255,255,255,0.7),rgba(255,255,255,0));animation:bbcue 1.8s ease-in-out infinite"></span></div>
+</section>
+<section style="max-width:1440px;margin:0 auto;box-sizing:border-box;padding-left:clamp(20px,5vw,72px);padding-right:clamp(20px,5vw,72px);padding-top:clamp(72px,9vw,120px);padding-bottom:clamp(112px,14vw,200px)">
+  
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:clamp(48px,7vw,128px);align-items:start">
+    <form onSubmit="{{ onSubmit }}" style="display:flex;flex-direction:column;gap:clamp(56px,6vw,88px)">
+      <div style="display:flex;flex-direction:column;gap:32px">
+        <h2 style="margin:0;font-size:24px;font-weight:500">{{ t.sec1 }}</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:36px 28px">
+          <label style="display:flex;flex-direction:column;gap:10px"><span style="font-size:14px;color:#6b6866">{{ t.fName }}</span><input type="text"  placeholder="{{ t.phName }}" style="border:0;border-bottom:2px solid #111;background:transparent;padding:10px 0;font-family:inherit;font-size:17px;color:#111;border-radius:0"></label>
+          <label style="display:flex;flex-direction:column;gap:10px"><span style="font-size:14px;color:#6b6866">{{ t.fPhoneF }}</span><input type="tel"  placeholder="09xx-xxx-xxx" style="border:0;border-bottom:2px solid #111;background:transparent;padding:10px 0;font-family:inherit;font-size:17px;color:#111;border-radius:0"></label>
+        </div>
+        <label style="display:flex;flex-direction:column;gap:10px"><span style="font-size:14px;color:#6b6866">{{ t.fEmail }}</span><input type="email"  placeholder="name@example.com" style="border:0;border-bottom:2px solid #111;background:transparent;padding:10px 0;font-family:inherit;font-size:17px;color:#111;border-radius:0"></label>
+        <label style="display:flex;flex-direction:column;gap:10px"><span style="font-size:14px;color:#6b6866">{{ t.fAddressF }}</span><input type="text"  placeholder="{{ t.phAddress }}" style="border:0;border-bottom:2px solid #111;background:transparent;padding:10px 0;font-family:inherit;font-size:17px;color:#111;border-radius:0"></label>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <h2 style="margin:0;font-size:24px;font-weight:500">{{ t.sec2 }}</h2>
+        <div style="display:flex;flex-direction:column;border-top:2px solid #111">
+          <sc-for list="{{ shipping }}" as="o" hint-placeholder-count="3">
+            <button type="button" onClick="{{ o.pick }}" style="display:grid;grid-template-columns:16px minmax(0,1fr) auto;gap:16px;align-items:center;text-align:left;background:transparent;border:0;border-bottom:2px solid #eeece9;padding:20px 0;cursor:pointer;font-family:inherit;color:#111">
+              <span style="width:14px;height:14px;border-radius:50%;border:2px solid {{ o.bd }};background:{{ o.dot }};box-sizing:border-box"></span>
+              <span style="display:flex;flex-direction:column;gap:4px;min-width:0"><span style="font-size:16px">{{ o.label }}</span><span style="font-size:14px;color:#6b6866">{{ o.note }}</span></span><span style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600">{{ o.fee }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <h2 style="margin:0;font-size:24px;font-weight:500">{{ t.sec3 }}</h2>
+        <div style="display:flex;flex-direction:column;border-top:2px solid #111">
+          <sc-for list="{{ payments }}" as="o" hint-placeholder-count="3">
+            <button type="button" onClick="{{ o.pick }}" style="display:grid;grid-template-columns:16px minmax(0,1fr) auto;gap:16px;align-items:center;text-align:left;background:transparent;border:0;border-bottom:2px solid #eeece9;padding:20px 0;cursor:pointer;font-family:inherit;color:#111">
+              <span style="width:14px;height:14px;border-radius:50%;border:2px solid {{ o.bd }};background:{{ o.dot }};box-sizing:border-box"></span>
+              <span style="font-size:16px">{{ o.label }}</span><span></span>
+            </button>
+          </sc-for>
+        </div>
+        <label style="display:flex;flex-direction:column;gap:10px"><span style="font-size:14px;color:#6b6866">{{ t.fNote }}</span><textarea rows="3" placeholder="{{ t.phNote }}" style="border:0;border-bottom:2px solid #111;background:transparent;padding:10px 0;font-family:inherit;font-size:17px;line-height:1.7;color:#111;resize:vertical;border-radius:0"></textarea></label>
+      </div>
+    </form>
+    <aside style="position:sticky;top:120px;background:#f4f3f1;padding:clamp(28px,3vw,44px);border-radius:3px;display:flex;flex-direction:column;gap:24px">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px"><span style="font-size:20px;font-weight:500">{{ t.summary }}</span><span style="font-family:'Space Grotesk',sans-serif;font-size:14px;color:#6b6866">{{ countLabel }}</span></div>
+      <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:16px;align-items:flex-start"><span style="font-size:15px;color:#6b6866">{{ t.empty }}</span><a href="Products.dc.html" style="display:inline-flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#2B4CA8">{{ t.browse }} <span style="font-size:16px">→</span></a></div></sc-if>
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <sc-for list="{{ lines }}" as="i" hint-placeholder-count="2">
+          <div style="display:grid;grid-template-columns:60px minmax(0,1fr) auto;gap:16px;align-items:start">
+            <div style="aspect-ratio:1/1;border-radius:3px;background-color:#fff;background-image:{{ i.imgCss }};background-size:cover;background-position:center"></div>
+            <span style="display:flex;flex-direction:column;gap:4px;min-width:0"><span style="font-size:14px;line-height:1.5">{{ i.name }}</span><span style="font-family:'Space Grotesk',sans-serif;font-size:13px;color:#6b6866">{{ i.qtyLabel }}</span></span>
+            <span style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;white-space:nowrap">{{ i.line }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;border-top:2px solid #111;padding-top:20px;font-size:15px">
+        <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#6b6866">{{ t.subtotal }}</span><span style="font-family:'Space Grotesk',sans-serif">{{ subtotal }}</span></div>
+        <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#6b6866">{{ t.shipFee }}</span><span style="font-family:'Space Grotesk',sans-serif">{{ shipFee }}</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:8px"><span>{{ t.total }}</span><span style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700">{{ total }}</span></div>
+      </div>
+      <button type="button" onClick="{{ onSubmit }}" style="display:inline-flex;align-items:center;gap:12px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#fff;background:#2B4CA8;padding:16px 30px;border:0;border-radius:3px;cursor:pointer;width:100%;justify-content:center" style-hover="background:#223f8f;color:#fff">{{ placeLabel }}</button>
+    </aside>
+  </div>
+</section>
+<dc-import name="SiteFooter" lang="{{ lang }}" hint-size="100%,360px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;zh&quot;,&quot;options&quot;:[&quot;zh&quot;,&quot;en&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Language&quot;}}">
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    this.state = { lang: p.defaultLang === 'en' ? 'en' : 'zh', menu: false, ship: 0, pay: 0, items: [] };
+  }
+  componentDidMount() {
+    try { import('./reveal.js').then(m => m.setupReveal(document)).catch(() => {}); } catch (e) {}
+    const sync = () => this.setState({ items: window.BBCart ? window.BBCart.items() : [] });
+    sync();
+    this._onCart = sync;
+    window.addEventListener('bb-cart:change', this._onCart);
+    setTimeout(sync, 400);
+    try {
+      const saved = localStorage.getItem('bb-lang');
+      if ((saved === 'en' || saved === 'zh') && saved !== this.state.lang) this.setState({ lang: saved });
+    } catch (e) {}
+  }
+  componentWillUnmount() { if (this._onCart) window.removeEventListener('bb-cart:change', this._onCart); }
+  setLang(l) {
+    try { localStorage.setItem('bb-lang', l); } catch (e) {}
+    this.setState({ lang: l });
+    if (document.documentElement) document.documentElement.lang = l === 'en' ? 'en' : 'zh-Hant';
+  }
+  money(n) { return 'NT$' + Number(n).toLocaleString('en-US'); }
+  dict() {
+    return {
+      zh: {
+        tagline: '生物的魔法師',
+        navProducts: '商品', navManufacturing: '製造', navMaterials: '原料', navAbout: '關於', navContact: '聯絡',
+        account: '會員', cart: '購物車',
+        crumbHome: '首頁', crumbCheckout: '結帳',
+        title: '結帳',
+        demoTag: '尚未開通', demoNote: '此結帳頁目前為設計稿：欄位可填寫、運送與付款方式可切換，但尚未接上金流與訂單系統。送出不會產生訂單。',
+        sec1: '收件資訊', sec2: '運送方式', sec3: '付款方式',
+        fName: '收件人姓名', fPhoneF: '聯絡電話', fEmail: '電子信箱', fAddressF: '收件地址', fNote: '訂單備註',
+        phName: '王小明', phAddress: '桃園市中壢區…', phNote: '指定到貨時間、發票統編、禮盒需求等。',
+        ship1: '宅配到府', ship1Note: '本島 2–3 個工作日', ship2: '超商取貨', ship2Note: '7-11／全家，3–5 個工作日', ship3: '滿額免運', ship3Note: '單筆滿 NT$1,500',
+        pay1: '信用卡', pay2: 'LINE Pay', pay3: 'ATM 轉帳', pay4: '貨到付款',
+        payTag1: '一次付清', payTag2: '行動支付', payTag3: '虛擬帳號', payTag4: '取貨付款',
+        summary: '訂單摘要', empty: '購物車目前是空的。', browse: '去看商品',
+        subtotal: '商品小計', shipFee: '運費', total: '應付總額',
+        place: '送出訂單', placed: '示意：尚未送出',
+        placeNote: '按下後不會產生訂單，也不會請求付款。',
+        askInstead: '改用聯絡表單詢問',
+        fAbout: '關於', fAbout1: '關於我們', fAbout2: '理念', fAbout3: '安心宣言', fAbout4: '原料展示',
+        fService: '服務', fService1: '客服中心', fService2: '退款政策', fService3: '隱私政策', fService4: '服務條款',
+        fTouch: '聯絡我們', fPhone: '客服專線：02-6605-7658', fHours: '客服時間：09:00–17:00',
+        fAddress: '桃園市中壢區高鐵站前西路一段268號12F-8',
+        fFollow: '追蹤我們',
+        copyright: '© 2026 BioBunBan 生物的魔法師. 版權所有.', placeFoot: '桃園 · 台灣'
+      },
+      en: {
+        tagline: 'THE BIO MAGICIANS',
+        navProducts: 'Products', navManufacturing: 'Manufacturing', navMaterials: 'Materials', navAbout: 'About', navContact: 'Contact',
+        account: 'Account', cart: 'CART',
+        crumbHome: 'Home', crumbCheckout: 'Checkout',
+        title: 'Checkout',
+        demoTag: 'Not live yet', demoNote: 'This checkout is a design prototype: the fields accept input and the shipping and payment options switch, but nothing is connected to payment or order systems. Submitting creates no order.',
+        sec1: 'Delivery details', sec2: 'Shipping method', sec3: 'Payment method',
+        fName: 'Recipient name', fPhoneF: 'Phone', fEmail: 'Email', fAddressF: 'Address', fNote: 'Order note',
+        phName: 'Your name', phAddress: 'Street, district, city', phNote: 'Preferred delivery time, invoice number, gift box requests.',
+        ship1: 'Home delivery', ship1Note: '2–3 working days, main island', ship2: 'Convenience store pickup', ship2Note: '7-11 / FamilyMart, 3–5 working days', ship3: 'Free over NT$1,500', ship3Note: 'Single order',
+        pay1: 'Credit card', pay2: 'LINE Pay', pay3: 'Bank transfer', pay4: 'Cash on delivery',
+        payTag1: 'One payment', payTag2: 'Mobile', payTag3: 'Virtual account', payTag4: 'On pickup',
+        summary: 'Order summary', empty: 'Your cart is empty.', browse: 'Browse products',
+        subtotal: 'Subtotal', shipFee: 'Shipping', total: 'Total',
+        place: 'Place order', placed: 'Prototype — not submitted',
+        placeNote: 'Pressing this creates no order and requests no payment.',
+        askInstead: 'Ask via the contact form instead',
+        fAbout: 'About', fAbout1: 'About us', fAbout2: 'Philosophy', fAbout3: 'Safety statement', fAbout4: 'Materials',
+        fService: 'Service', fService1: 'Customer service', fService2: 'Refund policy', fService3: 'Privacy policy', fService4: 'Terms of service',
+        fTouch: 'Get in touch', fPhone: 'Service line: +886 2-6605-7658', fHours: 'Hours: 09:00–17:00',
+        fAddress: '12F-8, No. 268, Sec. 1, Gaotie Zhanqian W. Rd., Zhongli, Taoyuan, Taiwan',
+        fFollow: 'Follow',
+        copyright: '© 2026 BioBunBan. All rights reserved.', placeFoot: 'Taoyuan · Taiwan'
+      }
+    };
+  }
+  renderVals() {
+    const lang = this.state.lang === 'en' ? 'en' : 'zh';
+    const t = this.dict()[lang];
+    const items = this.state.items || [];
+    const sub = items.reduce((n, i) => n + i.price * i.qty, 0);
+    const fees = [120, 70, 0];
+    const fee = sub >= 1500 ? 0 : fees[this.state.ship];
+    const count = items.reduce((n, i) => n + i.qty, 0);
+    return {
+      lang: lang,
+      t: Object.assign({}, t, { place: t.placeFoot }),
+      isEmpty: items.length === 0,
+      countLabel: lang === 'zh' ? (count + ' 件') : (count + ' items'),
+      lines: items.map(i => ({
+        name: i.name,
+        qtyLabel: this.money(i.price) + ' × ' + i.qty,
+        line: this.money(i.price * i.qty),
+        imgCss: i.img ? "url('" + i.img + "')" : 'none'
+      })),
+      subtotal: this.money(sub),
+      shipFee: fee === 0 ? (lang === 'zh' ? '免運' : 'Free') : this.money(fee),
+      total: this.money(sub + fee),
+      shipping: [0, 1, 2].map(i => ({
+        label: t['ship' + (i + 1)],
+        note: t['ship' + (i + 1) + 'Note'],
+        fee: fees[i] === 0 ? (lang === 'zh' ? '免運' : 'Free') : this.money(fees[i]),
+        bg: this.state.ship === i ? '#eaeef8' : '#fff', bd: this.state.ship === i ? '#F08335' : '#dde6ec',
+        dot: this.state.ship === i ? '#F08335' : '#fff',
+        pick: () => this.setState({ ship: i })
+      })),
+      payments: [0, 1, 2, 3].map(i => ({
+        label: t['pay' + (i + 1)],
+        tag: t['payTag' + (i + 1)],
+        bg: this.state.pay === i ? '#eaeef8' : '#fff', bd: this.state.pay === i ? '#F08335' : '#dde6ec',
+        dot: this.state.pay === i ? '#F08335' : '#fff',
+        pick: () => this.setState({ pay: i })
+      })),
+      placeLabel: this.state.placed ? t.placed : t.place,
+      onSubmit: (e) => {
+        if (e && e.preventDefault) e.preventDefault();
+        this.setState({ placed: true });
+        setTimeout(() => this.setState({ placed: false }), 2200);
+      },
+      menuDisplay: this.state.menu ? 'flex' : 'none',
+      openMenu: () => this.setState({ menu: true }),
+      closeMenu: () => this.setState({ menu: false }),
+      menuCats: [
+        ['all', '全部商品', 'All products'],
+        ['helos', '跑趴伴侶 Dr. Helos', 'Dr. Helos'],
+        ['burning', '燃燒吧 Burning', 'Burning'],
+        ['sommeil', '淺眠好幫手 Sommeil', 'Sommeil'],
+        ['women', '全方位女性', 'Women'],
+        ['focus', '思緒的精準導航', 'Focus'],
+        ['phytopure', '植・萃 PhytoPure', 'PhytoPure'],
+        ['partner', '合作夥伴商品', 'Partner']
+      ].map(r => ({ label: lang === 'zh' ? r[1] : r[2], href: 'Products.dc.html#' + r[0] })),
+      langKnob: lang === 'zh' ? 'translateX(0)' : 'translateX(100%)',
+      zhInk: lang === 'zh' ? '#0b0b0b' : '#8a8a8a',
+      enInk: lang === 'en' ? '#0b0b0b' : '#8a8a8a',
+      openCart: () => { if (window.BBCart) window.BBCart.open(); },
+      toggleLang: () => this.setLang(lang === 'zh' ? 'en' : 'zh')
+    };
+  }
+}
+</script>
+</body>
+</html>
